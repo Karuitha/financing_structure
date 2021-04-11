@@ -1,0 +1,4 @@
+"","statistic","p.value","parameter","method","alternative"
+"1",56.7528889394592,0.000691261701981328,27,"Hausman Test","one model is inconsistent"
+"2",55.1743836860874,0.00109023702980648,27,"Hausman Test","one model is inconsistent"
+"3",14.8299858760657,0.971749434002205,27,"Hausman Test","one model is inconsistent"

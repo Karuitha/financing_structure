@@ -1,0 +1,4 @@
+statistic,p.value,parameter,method,alternative
+10076.880365297735,1.3512874791292791e-300,5300,Breusch-Pagan LM test for  cross-sectional dependence in panels,cross-sectional dependence
+10226.861257760409,1.2389321647363e-310,5339,Breusch-Pagan LM test for  cross-sectional dependence in panels,cross-sectional dependence
+10110.259788702182,1.34575492825529e-298,5339,Breusch-Pagan LM test for  cross-sectional dependence in panels,cross-sectional dependence

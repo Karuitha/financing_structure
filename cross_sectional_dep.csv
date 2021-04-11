@@ -1,0 +1,4 @@
+statistic,p.value,method,alternative
+-1.1168980319838213,0.26403792619715477,Pesaran CD test for  cross-sectional dependence in panels,cross-sectional dependence
+5.574064563685864,2.4886343383987625e-8,Pesaran CD test for  cross-sectional dependence in panels,cross-sectional dependence
+5.058965984351745,4.215360464595025e-7,Pesaran CD test for  cross-sectional dependence in panels,cross-sectional dependence

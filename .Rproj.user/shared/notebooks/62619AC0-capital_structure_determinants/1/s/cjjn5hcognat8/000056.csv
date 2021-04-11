@@ -1,0 +1,4 @@
+"0",""
+"0","qqnorm(residuals(random_effects_de), ylab = 'Residuals', xlab = """", "
+"0","       col = ""red"", "
+"0","       main = ""Debt-Equity Ratio"")"
