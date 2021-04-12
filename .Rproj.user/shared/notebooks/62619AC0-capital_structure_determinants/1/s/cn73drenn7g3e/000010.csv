@@ -1,7 +1,0 @@
-"0","pcd5 <- broom::tidy(pcdtest(random_effects_car, test = ""lm"")) # capital assets ratio"
-"0","pcd6 <- broom::tidy(pcdtest(fixed_effects_car, test = ""lm"")) # capital assets ratio"
-"0",""
-"0","pcd7 <- broom::tidy(pcdtest(random_effects_de, test = ""lm"")) # debt equity "
-"0","pcd8 <- broom::tidy(pcdtest(fixed_effects_de, test = ""lm"")) # debt-equity"
-"0",""
-"0","rbind(pcd5, pcd6, pcd6, pcd7)"

@@ -34,7 +34,7 @@
 "0","                      "
 "0","                      log(donations_assets_ratio) + "
 "0","                      "
-"0","                      gdp_growth_annual, "
+"0","                      gdp_growth_annual + factor(year), "
 "0","                      "
 "0","                      data = data_wins,"
 "0","                    "
