@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.3.25)  12 APR 2021 18:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.3.25)  29 APR 2021 16:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1237,15 +1237,15 @@ LaTeX Warning: There were multiply-defined labels.
  ) 
 Here is how much of TeX's memory you used:
  15988 strings out of 481745
- 236471 string characters out of 5930830
- 557571 words of memory out of 5000000
+ 236527 string characters out of 5930830
+ 557598 words of memory out of 5000000
  30546 multiletter control sequences out of 15000+600000
  580439 words of font info for 133 fonts, out of 8000000 for 9000
  891 hyphenation exceptions out of 8191
  43i,17n,43p,1022b,592s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t2a.enc}{/usr/share/texmf
-/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathi
-t.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texlive/texmf-
+/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.en
+c}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texlive/texmf-
 dist/fonts/enc/dvips/sourcesanspro/a_rsnzt5.enc}</usr/share/texlive/texmf-dist/
 fonts/type1/adobe/sourcesanspro/SourceSansPro-Regular.pfb></usr/share/texmf/fon
 ts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi5.pfb
@@ -1259,7 +1259,7 @@ rm0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/sha
 re/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1
 /public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfr
 m1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb>
-Output written on capital_structure_determinants.pdf (27 pages, 9937039 bytes).
+Output written on capital_structure_determinants.pdf (27 pages, 9672307 bytes).
 
 PDF statistics:
  475 PDF objects out of 1000 (max. 8388607)

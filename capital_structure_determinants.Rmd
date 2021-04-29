@@ -201,7 +201,7 @@ mutate(currentlegalstatus = factor(currentlegalstatus,
          
          percent_of_female_borrowers, operational_self_sufficiency,
          
-         age, legal_tradition, region.x, asset_structure, 
+         age, legal_tradition, region.x, 
          
          assets, kkm, education, pcrdbgdp, stmktcap, prbonds, 
          
@@ -209,7 +209,11 @@ mutate(currentlegalstatus = factor(currentlegalstatus,
          
          profit_margin, debt_to_equity_ratio, capital_asset_ratio, 
          
-         deposits_to_total_assets) %>% 
+         deposits_to_total_assets, liabilities_and_equity, 
+         
+         operating_expense_assets, average_loan_balance_per_borrower,
+         
+         gross_loan_portfolio_to_total_assets, net_fixed_assets) %>% 
   
           ## Rename region
          rename(region = region.x) %>% 
@@ -226,11 +230,9 @@ mutate(currentlegalstatus = factor(currentlegalstatus,
   
   group_by(mfiid) %>% 
   
-  mutate(asset_structure = replace_na(asset_structure, median(asset_structure, na.rm = TRUE)), 
-         
-         percent_of_female_borrowers = replace_na(percent_of_female_borrowers, 
+  mutate(percent_of_female_borrowers = replace_na(percent_of_female_borrowers, 
                                                   
-                                                  median(percent_of_female_borrowers, na.rm = TRUE)),
+                            median(percent_of_female_borrowers, na.rm = TRUE)),
          
          operational_self_sufficiency = replace_na(operational_self_sufficiency, 
                                                    
@@ -250,7 +252,27 @@ mutate(currentlegalstatus = factor(currentlegalstatus,
          
          debt_to_equity_ratio = replace_na(debt_to_equity_ratio, median(debt_to_equity_ratio, na.rm = TRUE)), 
          
-         deposits_to_total_assets = replace_na(deposits_to_total_assets, median(deposits_to_total_assets, na.rm = TRUE))) %>% 
+         deposits_to_total_assets = replace_na(deposits_to_total_assets, 
+                                               
+                                               median(deposits_to_total_assets, na.rm = TRUE)),
+         
+         liabilities_and_equity = replace_na(liabilities_and_equity, 
+                                             
+                                             median(liabilities_and_equity, na.rm = TRUE)), 
+         
+         operating_expense_assets = replace_na(operating_expense_assets, 
+                                               
+                                               median(operating_expense_assets, na.rm = TRUE)), 
+         
+         average_loan_balance_per_borrower = replace_na(average_loan_balance_per_borrower, 
+                                                        
+                                                        median(average_loan_balance_per_borrower, na.rm = TRUE)), 
+         
+         gross_loan_portfolio_to_total_assets = replace_na(gross_loan_portfolio_to_total_assets, 
+                                                        
+                                                        median(gross_loan_portfolio_to_total_assets, na.rm = TRUE)),
+         
+         net_fixed_assets = replace_na(net_fixed_assets, median(net_fixed_assets, na.rm = TRUE))) %>% 
   
   ungroup() %>% 
   
@@ -292,7 +314,25 @@ mutate(currentlegalstatus = factor(currentlegalstatus,
          
          deposits_to_total_assets = replace_na(deposits_to_total_assets, median(deposits_to_total_assets, 
                                                                                 
-                                                                                na.rm = TRUE))) %>% 
+                                                                                na.rm = TRUE)), 
+         
+         liabilities_and_equity = replace_na(liabilities_and_equity, 
+                                             
+                                             median(liabilities_and_equity, na.rm = TRUE)), 
+         
+         operating_expense_assets = replace_na(operating_expense_assets, 
+                                               
+                                               median(operating_expense_assets, na.rm = TRUE)), 
+         
+         average_loan_balance_per_borrower = replace_na(average_loan_balance_per_borrower, 
+                                                        
+                                                        median(average_loan_balance_per_borrower, na.rm = TRUE)), 
+         
+         gross_loan_portfolio_to_total_assets = replace_na(gross_loan_portfolio_to_total_assets, 
+                                                        
+                                                        median(gross_loan_portfolio_to_total_assets, na.rm = TRUE)),
+         
+         net_fixed_assets = replace_na(net_fixed_assets, median(net_fixed_assets, na.rm = TRUE))) %>% 
   
   ungroup() %>% 
   
@@ -305,8 +345,6 @@ mutate(currentlegalstatus = factor(currentlegalstatus,
          stmktcap = log(stmktcap + 1),
          
          prbonds = log(prbonds + 1)) %>% 
-  
-  select(-asset_structure) %>% 
   
   add_count(mfiid, name = "count") %>% 
   
@@ -332,7 +370,30 @@ mutate(donations_assets_ratio = case_when(donations_assets_ratio <= 0 ~ 1,
                              TRUE ~ donations_assets_ratio + 1)) %>% 
   
 mutate(profit_margin = case_when(profit_margin < -50 ~ 51,
-                                 TRUE ~ profit_margin + 51))
+                                 TRUE ~ profit_margin + 51)) %>% 
+
+## Remove zeros and negatives
+mutate(dea_oss = operational_self_sufficiency + 2, 
+       
+       dea_average_loan = average_loan_balance_per_borrower + 2,
+       
+       asset_structure = net_fixed_assets / (liabilities_and_equity + 1)) %>% 
+  
+## mean normalize the inputs and outputs and eliminate zeros
+mutate(dea_oss = dea_oss/ mean(dea_oss),
+       
+       dea_average_loan = dea_average_loan/ mean(dea_average_loan), 
+       
+       dea_average_loan = (1/dea_average_loan) + 1,
+       
+       dea_percent_women = 1 + (percent_of_female_borrowers / mean(percent_of_female_borrowers)),
+       
+       dea_gross_loans = 1 + (gross_loan_portfolio_to_total_assets/ mean(gross_loan_portfolio_to_total_assets)),
+       
+       dea_operating_exp = (1 +  operating_expense_assets/ mean(operating_expense_assets)), 
+       
+       dea_liab_equity = (1 + liabilities_and_equity / mean(liabilities_and_equity)))
+  
 
 ## Write a csv for the data
 my_data %>% write.csv(., "data.csv")
@@ -1503,7 +1564,7 @@ Extant research deals with CSD in three main ways. The traditional method is the
 
 ## Conclusion 
 
-This article examined the drivers of four indicators of the financing structure of MFIs in Africa: Debt to equity ratio, capital to assets ratio, deposits to assets ratio and donations to assets ratio. The results show that size, legal status, and age of MFIs are consistently related to the financing structure. Profit margin is directly related to leverage and inversely with capital to assets ratio as capital structure theory predicts. Institutional quality (KKM) refers only to deposits and donations, with lower KKM corresponding to more deposits and donations. Education and asset structure relate weakly to leverage, while financial development is not a significant factor which contradicts styluses facts on the capital structure of firms.  For MFIs, it is the institutional level factors that drive the financing structure. Microfinance in Africa shows a weak linkage to the macroeconomy. 
+This article examined the drivers of four indicators of the financing structure of MFIs in Africa: Debt to equity ratio, capital to assets ratio, deposits to assets ratio and donations to assets ratio. The results show that size, legal status, and age of MFIs are consistently related to the financing structure. Profit margin is directly related to leverage and inversely with capital to assets ratio as capital structure theory predicts. Institutional quality (KKM) refers only to deposits and donations, with lower KKM corresponding to more deposits and donations. Education and asset structure relate weakly to leverage, while financial development is not a significant factor which contradicts styluses facts on the capital structure of firms.  For MFIs, it is the institutional level factors that drive the financing structure. Microfinance in Africa shows a weak linkage to the macro-economy. 
 
 ## **References**
 
@@ -1549,7 +1610,7 @@ hausmann_test(my_data, my_data$deposits_to_total_assets)) %>%
 
 
 \newpage
-### Regressions using Winsorized Data
+### Appendix 2: Regressions using Winsorized Data
 
 ```{r, results='asis', fig.cap = "Regressions Using Winsorized Data"}
 fixed_effects_car_wins <- modelling_wins(depvar = data_wins$capital_asset_ratio)
@@ -1587,7 +1648,7 @@ stargazer(fixed_effects_car_wins, random_effects_car_wins,
 \blandscape
 \newpage
 
-### Multicollinearity: Variance Inflation Factors
+### Appendix 3: Multicollinearity: Variance Inflation Factors
 
 ```{r}
 ## Variance Inflation factors
@@ -1611,7 +1672,7 @@ vif_final %>%
 
 \elandscape
 
-### Appendix : Fixed vs pooled OLS- F test for Individual Effects
+### Appendix 4: Fixed vs pooled OLS- F test for Individual Effects
 
 ```{r, results='asis'}
 rbind(
@@ -1646,7 +1707,7 @@ broom::tidy(pFtest(fixed_effects_de, pooling_de))) %>%
 
 \newpage
 
-### Appendix : Cross sectional dependence
+### Appendix 5: Cross sectional dependence
 
 ```{r}
 pcd5 <- broom::tidy(pcdtest(random_effects_car, test = "lm")) # capital assets ratio
@@ -1662,7 +1723,7 @@ rbind(pcd5, pcd6, pcd6, pcd7)
 
 \newpage
 
-### Appendix : Residuals QQ-Plots 
+### Appendix 6: Residuals QQ-Plots 
 
 ```{r, fig.height = 11, fig.width = 16, fig.align='center', fig.cap="residual QQ-plots for Fixed and Random Effects Regression Models"}
 par(mfrow = c(2,2))
