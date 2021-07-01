@@ -396,12 +396,11 @@ modelling <- function(data, depvar,
   random.method <- match.arg(random.method)
   
   ## Run the Model
-  unadjusted <- plm(depvar ~ currentlegalstatus + age + region +
-+           operating_expense_assets + 
-+           donations_assets_ratio + 
-+           capital_asset_ratio +
+  unadjusted <- plm(depvar ~ currentlegalstatus + 
+            age + region + kkm +
 +           asset_structure + log(assets) + 
-+           education + profit_margin + year, 
+            pcrdbgdp + stmktcap +
+            profit_margin + year, 
           data = data, effect = effect,
           model = model, 
           inst.method = inst.method, index = index, 
@@ -683,78 +682,13 @@ data_wins <- sapply(data_wins_capital_structures, remove_outliers) %>%
 ```
 
 
-
-```{r}
-## Regression function - fixed, random and pooling ---- 
-modelling_wins <- function(depvar,
-                      effect = c("individual", "twoways", "time", "nested"),
-                      model = c("within", "random", "ht", "between", "pooling", "fd"),
-                      inst.method = c("bvk", "baltagi", "am", "bms"),
-                      random.method = c("swar", "amemiya", "walhus", "nerlove"),
-                      digits = 4, index = c("mfiid", "year")){
-  
-  ## Load libraries
-  library(plm)
-  library(broom)
-  library(pcse)
-  library(car)
-  library(zoo)
-  library(lmtest)
-  library(broom)
-  library(stargazer)
-  
-  ## match arguments
-  effect <- match.arg(effect)
-  model <- match.arg(model)
-  inst.method <- match.arg(inst.method)
-  random.method <- match.arg(random.method)
-
-  
-  ## Run the Model
-  plm(depvar ~ age + currentlegalstatus + 
-                      
-                      legal_tradition + 
-                      
-                      assets + kkm + pcrdbgdp + 
-                      
-                      log(stmktcap) + log(profit_margin) + 
-                      
-                      log(donations_assets_ratio) + 
-                      
-                      gdp_growth_annual + factor(year), 
-                      
-                      data = data_wins,
-                    
-                    effect = effect,
-                    
-                    model = model, 
-                    
-                    inst.method = inst.method, 
-                    
-                    index = index, 
-                    
-                    digits = digits)
-  
-  ## Output results
-       
-       ## Correct standard errors for heteroscedasticity 
-       ## And cross-sectional dependence
-       
-       #coeftest(unadjusted, vcov. = function(x) {
-         #vcovBK(x, method = "arellano", type="HC1", cluster = "group")
-       #})
-}
-
-```
-
-
 \newpage
 
-## Introduction
+## **Background**
 
 @bayai2016financing cite institutional theory in explaining the way microfinance institutions (MFIs) in Africa fund their operations. They note that at the early stages, most MFIs tend to operate as Non-Governmental Organisations (NGOs). These NGOs derive a substantial amount of their funding from donations and concessionary funds, given that commercial funders deem the MFIs too risky (Ledgerwood, 1998; Ledgerwood & White, 2006). Later, in the consolidation stage, the NGOs supplement their funds using government subsidies and equity funding. As they mature, they resort to deposits and debt, whilst often using foreign donors as guarantees. It is at this stage that MFIs are likely to mutate from NGOs that focus on social aspect of availing financial services to the financially excluded to the commercial model where financial sustainability matters as much as social performance. 
 
-The transformation of MFIs from NGOs to the commercial model has raised concern over mission drift, wherein MFIs focus more on profitability and less on the social aspect of reaching the unbanked (Mia & Lee, 2017; Ramus & Vaccaro, 2017). Also, some researchers argue that the hybrid business model of most MFIs makes it challenging to intergrate them into the formal financial system as financiers deem them too risky for the level of return they offer (Campion & White, 1999). Conversely, the core argument for the institutional transformation of MFIs from the NGO, not-for-profit model, to the commercial model is access to capital markets. Advocates of the financial sustainability model of MFIs posit that capital market funding allows for improved corporate governance and reduces dependence on volatile donor funding (Garmaise & Natividad, 2013; D'Espallier, Hudon, & Szafarz, 2017). Financial sustainability also allows MFIs to reach more unbanked people in the long run (Tchakoute-Tchuigoua, 2010). 
+The transformation of MFIs from NGOs to the commercial model has raised concern over mission drift, wherein MFIs focus more on profitability and less on the social aspect of reaching the unbanked (Mia & Lee, 2017; Ramus & Vaccaro, 2017). Also, some researchers argue that the hybrid business model of most MFIs makes it challenging to integrate them into the formal financial system as financiers deem them too risky for the level of return they offer (Campion & White, 1999). Conversely, the core argument for the institutional transformation of MFIs from the NGO, not-for-profit model, to the commercial model is access to capital markets. Advocates of the financial sustainability model of MFIs posit that capital market funding allows for improved corporate governance and reduces dependence on volatile donor funding (Garmaise & Natividad, 2013; D'Espallier, Hudon, & Szafarz, 2017). Financial sustainability also allows MFIs to reach more unbanked people in the long run (Tchakoute-Tchuigoua, 2010). 
 
 Indeed, across the globe and in Africa, many MFIs are transitioning from the NGO not-for-profit model to the financial sustainability approach where they strive to generate profit over and above meeting their social goal (Hudon, 2010; Wagenaar, 2012; Kodongo & Kendi, 2013). Having grown on a donations dependent model, the shift to the commercial model has implied a change in the business model, and most importantly a search for a steady source of capital beyond donations and subsidies (D'Espallier, Hudon, & Szafarz, 2013).
 
@@ -799,18 +733,185 @@ my_data %>%
            number = c("Legal status include NGO, Non-Bank Financial Institutions (NBFIs), Credit Unions, and Banks", "Age has mature MFIs older than 8 years, young ones (4 - 8 years), and new ones that are 4 years or less"),
            number_title = "Note: ")
 ```
+
 \elandscape
 
-Figure 1 shows the sources of financing for MFIs in Africa. As expected, NGOs are least reliant on debt compared to other MFI models. Rural banks, commercial banks, Credit unions and NBFIs, respectively, have the most debt relative to assets. The picture is the exact opposite for capital to assets ratio where NGOs lead while rural banks trail. NGOs have the lowest median deposits to assets ratio, probably arising from the legal restrictions on deposit mobilisation. Lastly, and not surprisingly, NGOs have the highest median donations to assets. While the data shows some regularity in terms of the legal status of MFIs, it is notable that some MFIs are shifting from the NGO model to the commercial model- mainly as commercial banks and NBFIs (Sarma, 2011; Jia, Cull, Guo, & Ma, 2016). For the NGOs converting to the commercial model, the source of alternative, sustainable sources of finance is a vital consideration. 
+Table 1 shows the sources of financing for MFIs in Africa. As expected, NGOs are least reliant on debt compared to other MFI models. Rural banks, commercial banks, Credit unions and NBFIs, respectively, have the most debt relative to assets. The picture is the exact opposite for capital to assets ratio where NGOs lead while rural banks trail. NGOs have the lowest median deposits to assets ratio, probably arising from the legal restrictions on deposit mobilisation. Lastly, and not surprisingly, NGOs have the highest median donations to assets. While the data shows some regularity in terms of the legal status of MFIs, it is notable that some MFIs are shifting from the NGO model to the commercial model, mainly as commercial banks and NBFIs (Sarma, 2011; Jia, Cull, Guo, & Ma, 2016). For the NGOs converting to the commercial model, the likelihood of alternative, sustainable sources of finance is a vital consideration. 
 
-This article examines the factors that determine the source of financing for MFIs in Africa- beyond the institutional life cycle proposition of Bayai and Ikhide (2016). Specifically, we examine the drivers of two primary capital structure indicators; leverage (debt to equity ratio), capital to assets ratio (also termed as equity to assets ratio).  The existing literature on capital structure choices focuses on commercial (profit-oriented) firms (Gropp & Heider, 2010; Liu, Liu, Peng, & Yang, 2017; Matias & Serrasqueiro, 2017). The drivers of financing for MFIs may differ from those of purely commercial firms because the social goals of MFIs may be at conflict with those of the commercial providers of funds. Nonetheless, extant literature on the funding structure of MFIs mainly examines the link between capital structure and the performance and sustainability of MFIs (Kyereboah-Coleman, 2007b; Bogan, 2012; Khachatryan, Hartarska, & Grigoryan, 2017). 
+This article examines the factors that determine the source of financing for MFIs in Africa, beyond the institutional life cycle proposition of Bayai and Ikhide (2016). Specifically, we examine the drivers of two primary capital structure indicators; leverage (debt to equity ratio), equity (capital to assets ratio), deposits (deposits to assets ratio) and finally, donations (donations to assets ratio).  The existing literature on capital structure choices predominantly focuses on commercial (profit-oriented) firms (Gropp & Heider, 2010; Liu, Liu, Peng, & Yang, 2017; Matias & Serrasqueiro, 2017). The drivers of financing for MFIs may differ from those of purely commercial firms because the social goals of MFIs may be at conflict with those of the commercial providers of funds. Nonetheless, extant literature on the funding structure of MFIs mainly examines the link between capital structure and the performance and sustainability of MFIs (Kyereboah-Coleman, 2007b; Bogan, 2012; Khachatryan, Hartarska, & Grigoryan, 2017). 
+In this respect, three studies by Kyereboah-Coleman (2007a), Tchakoute-Tchuigoua (2014), and Tchakoute-Tchuigoua (2015) closely resonate with our work. However, in these studies, the researchers focus chiefly on the determinants of leverage (debt-to-equity ratio) for MFIs and find leverage to be positively related to asset tangibility, size, past-due loans, and inversely related to creditor rights and risk; confirming the literature on capital structure. Profitability and credit ratings have limited impact on capital structure, while financial development and legal tradition are significant. Tchakoute-Tchuigoua (2014) further finds that donations are negatively related to past-due loans and asset tangibility, implying donors do care about firm riskiness. None of the studies delves into capital assets ratio. 
 
-In this respect, three studies by Kyereboah-Coleman (2007a), Tchakoute-Tchuigoua (2014), and Tchakoute-Tchuigoua (2015) closely resonate with our work. However, in these studies, the researchers focus chiefly on the determinants of leverage (debt-to-equity ratio) for MFIs., the researchers find leverage to be positively related to asset tangibility, size, past-due loans, and inversely with creditor rights and risk confirming the literature on capital structure. Profitability and credit ratings have limited impact on capital structure, while financial development and legal tradition are significant. Tchakoute-Tchuigoua (2014) further finds that donations to be negatively related with past-due loans and asset tangibility, implying donors do care about firm riskiness. None of the studies delves into capital assets ratio. 
+The contribution of our study goes beyond previous research in this area of scholarship in two respects: context and scope. Prior studies dwell exclusively on leverage (debt-equity ratio) while our study examines leverage, capital-assets ratio. The additional financing structure measures are essential for MFIs that are transitioning to the financial sustainability model as they must source funds externally. Besides, this study goes beyond that of Kyereboah-Coleman (2007a) that examined MFIs in Ghana only by focusing on Africa; thus allowing for cross-country comparisons. As [@d2017ngos] cautions, research based on geographically dispersed regions could mask important regional characteristics, as is the case with the research by Tchakoute-Tchuigoua (2014, 2015) that draws from a global dataset. By focusing on Africa, this study will allow for deeper insights and comparison using data from a relatively homogeneous region. Such knowledge would, in turn, permit us to evolve more effective funding strategies to support and enable the unique added benefit of MFIs (that is, financial inclusion for the poor) that is particularly significant for emerging and developing economies and in particular, Africa. 
 
-The contribution of our study goes beyond the previous research in two respects: context and scope. The prior studies dwell exclusively on leverage (debt-equity ratio) while our study examines leverage, capital-assets ratio. The additional financing structure measures are essential for MFIs that are transitioning to the financial sustainability model as they must source funds externally. Besides, this study goes beyond that of Kyereboah-Coleman (2007a) that examined MFIs in Ghana by focusing on Africa, allowing for cross country comparisons. As [@d2017ngos] cautions, research based on geographically dispersed regions could mask important regional characteristics as is the case with the research by Tchakoute-Tchuigoua (2014, 2015) that draws from a global dataset. By focusing on Africa, this study will allow for a insights and comparison using data from a relatively homogeneous region. Such knowledge would, in turn, permit us to evolve more effective funding strategies to support and enable the unique added benefit of MFIs (that is, financial inclusion for the poor) that is particularly significant for emerging and developing economies and in particular, Africa. 
+The next section highlights the results of the study, followed by a review of supporting theory and empirical literature. We then describe data and data sources, followed by the research method. We discuss the results and then conclude. 
 
-The next section highlights the results of the study, followed by a review of theory and empirical literature. We then describe data and data sources, followed by the method. We discuss the results and then conclude. 
+## Summary of Results 
+The age of an MFI is the chief driver of leverage (debt-equity ratio). The key drivers of capital to assets ratio for MFIs in Africa are MFI legal status, legal tradition,  size, stock markets development, profitability, and donations. Young and mature MFIs have a lower leverage relative to new MFIs. Similarly, young and mature MFIs have a lower capital to assets ratio compared to new MFIs. The results show that older MFIs tend to rely less on debt and more equity. However, the amount of equity that older MFIs raise is still a smaller proportion of their total assets, given that older MFIs tend to be larger. Furthermore, mature firms are also likely to have lower leverage because they attract more donations and state subsidies. Thus, although the capital structure theory that posits that older firms tend to have higher leverage due to their higher capacity for debt (Gwatidzo & Ojah, 2009), the presence of donations and subsidies for MFIs could dilute the effects of age on financing structure. 
 
+NGOs have a higher debt to equity and capital to assets ratio relative to commercial banks, NBFIs, credit unions and rural banks. In line with the institutional theory, the results could hold due to the donor and state support that NGOs receive. These additional sources give NGOs enhanced capability to raise capital than the commercial firms which are at the mercy of market pressures. Furthermore, NGOs are able to get credit guarantees and receive equity injections from bilateral and multilateral lenders as well as fiscal incentives to further the agenda of financial inclusion. The support in the form of donations and subsidies for NGOs is warranted given that the majority are not licensed to garner deposits (D’Espallier, Goedecke, Hudon, & Mersland, 2017). For debt to equity ratio, the legal status of an MFI is not significant. 
+
+Legal tradition is not a significant determinant of leverage, although MFIs in common law countries, on average, have higher leverage. For capital to assets ratio, however, legal tradition matters. MFIs in common law countries have higher capital to assets ratio compared to those in civil law and other legal traditions. These results underline the better financial infrastructure in common law countries relative to other legal traditions [@la2013law; @schnyder2018twenty]. The size of MFIs, captured using the logarithm of assets, varies positively with debt-to-equity ratio, and negatively with capital to assets ratio. For debt-to-equity ratio, the relationship is not significant. As expected, larger firms with a wide capital base rely more on internal funds than on the equity market for financing in line with the pecking order theory of capital structure. The ratio of stock market to GDP, donations to assets, and profit margin are significant drivers of capital to assets ratio but do not significantly influence debt to equity ratio. Both profit margin and donations vary positively with capital to assets and dent to equity ratio meaning that they raise the capacity of MFIs to attract both debt and equity capital. However, stock market capitalization is inversely related to leverage and capital to assets ratio. The result could mean that MFIs rarely deal with capital markets, opting instead, to raise finance privately. Also, if stock markets are well developed, it implies that debt markets are well developed which lowers the demand for microfinance overall. In these settings, it is hard for MFIs to raise capital. 
+
+However, going against stylised theoretical facts (Allen et al., 2014), private credit to GDP is not a significant determinant leverage and capital to assets ratios in Africa. Similarly, institutional quality does not significantly relate to both leverage and capital to assets ratio (Campello & Giambona, 2011). GDP growth rate neither significantly affects leverage nor capital to assets ratio. Overall, the results suggest that for MFIs in Africa, firm-level factors matter more in financing structure than macroeconomic factors. With slight deviations, these results are consistent with the capital structure theory (Barclay & Smith, 2005; Ojah & Pillay, 2009). 
+
+## Theoretical Framework 
+
+Like commercial firms, MFIs draw their capital from equity, debt (including deposits). Unlike commercial firms, MFIs have a substantial source of capital in the form of donations and subsidies (D’Espallier et al., 2013). As noted, despite the notable difference in financing structure, the empirical research on the financing of MFIs mainly relates to debt-equity mix (Kyereboah-Coleman, 2007a; Tchakoute-Tchuigoua, 2014, 2015). This study seeks to examine the drivers of the more comprehensive financing structure of MFIs relating to leverage and capital (equity) to assets ratio. The study draws its theoretical frame from two theories: the capital structure theory and the institutional (life cycle) theory. 
+
+The capital structure theories seek to explain the mix of long-term debt and equity in the financing structure of enterprises (Ehrhardt & Brigham, 2016).  The dominant literature in this respect revolves around the Modigliani & Miller capital structure theories, of which the trade-off theory against predominant (Sun, Ding, Guo, & Li, 2016). The classic trade-off theory holds that the debt-equity mix is relevant insofar as it generates a debt tax shield which organisations balance with the costs of possible financial distress that comes with high debt levels (Liu et al., 2017). Further, financial distress explains why firms favour easily negotiable debt, which makes firms to approve bank loans in place of sourcing debt funds via capital markets (De Jong, Verbeek, & Verwijmeren, 2011).
+
+The implication is that mature, profitable firms tend to rely on internal sources of capital as do firms with little cash flows and intangible assets. In this case, the trade-off theory corresponds with the pecking order theory of Donaldson and Fox (1961) and Myers and Majluf (1984), which posits that firms issue capital in a predetermined order, usually starting with the cheapest internal sources of funds while maintaining a reserve borrowing capacity. In the case of MFIs, we presume that donations and subsidies would come first in the pecking order. The reserve borrowing capacity allows firms to arrange debt funds quickly in case of profitable opportunities that arise. Moreover, the trade-off theory has correspondence with the proposition by Bayai and Ikhide (2016) that the capital structure of MFIs evolves with the institutional life-cycle of firms, with younger firms more proportionately reliant on donations and concessionary funds, and with older firms more inclined to commercial funding. 
+
+Extending the trade-off theory, Bradley, Jarrell, and Kim (1984) showed that, under certain conditions, the tax disadvantage of debt at the individual level offset the tax disadvantage at the corporate level. The result was the introduction of leverage related costs to the classical trade-off theory. These costs include the bankruptcy costs, agency costs of debt, the loss of non-debt tax shields (such as accelerated depreciation and investment tax credits). The additional leverage related costs mean that firms seek to balance the tax benefits of debt and the leverage-related costs. Miao (2005) show that the choice of financing mix relates to these non-debt tax shields, in addition to financial and trade cycles. Hence the capital structure is firm-specific and mean-reverting. Still, the capital structure theories cannot explain the observed under-leveraged firms. Moreover, while the profit motive drives commercial firms, the capital structure theories may not fully apply to hybrid firms that have a dual mission, like MFIs.
+
+The institutional theory does have some congruence with the capital (financial) structure of MFIs. Expressly, the observed rise in debt financing and the concurrent drop in donations could point to a shift by MFIs towards a financially sustainable MFI model. The pressure to move towards the financial sustainability model could reflect a broader change in the MF industry or result from pressure from donors, signalling fatigue and the intent to withdraw or reduce funding. The pressure would be especially intense for MFIs that are highly dependent on donations (DiMaggio & Powell, 1991), underlining the role of donors such as USAID in the push towards sustainability (Bateman, 2010). Although the institutional theory cannot fully account for the MFIs that have not changed from NGOs to commercial models, the changing capital structures do indicate that financial sustainability is gaining traction. Figure 4 shows that even without a change in legal forms, the proportion of donations to MFIs in Africa is dropping. The next section details the empirical approach adopted in the study. 
+
+## Method
+
+The study adopts the fixed and random effects models depending on the outcome of the Hausman tests (see appendix 2). Following Roberts and Whited (2013). We consider the model that follows.
+
+\begin{equation}
+Y_{it} = \beta_{0} + \beta_{1}X_{it} + \mu_{it}
+\end{equation}
+
+Further, assume that,
+
+\begin{equation}
+\mu_{it} = C_{i} + \epsilon_{it}
+\end{equation}
+
+Where  $c_{i}$ captures the aggregate effects of the unobserved, time-invariant explanatory variables for $Y_{it}$ . Further, assume that $e_{it}$ has zero mean conditional on $X_{it}$. In the case where $C_{i}$ and $X_{it}$ are correlated, then $C_{t}$ is a fixed effect; otherwise, it is a random effect. Note that the existence of fixed effects implies the presence of endogeneity. For random effects, on the other hand, endogeneity is not a concern. However, the random-effects model affects the computation of standard errors (Roberts & Whited, 2013).
+
+Thus, the fixed effects models seek the causes of changes within an entity. The fixed-effects model does this by controlling for all time-invariant differences between the individuals, so the estimated coefficients of the fixed-effects models cannot be biased because of omitted time-invariant characteristics, such as culture (Torres-Reyna, 2007). To deal with the endogeneity inherent in the fixed effects model, researchers recommend two strategies. The first approach involves the inclusion of firm-specific intercepts by running the least squares dummy variable regression. The approach is not feasible with medium to large datasets. In the alternative within-estimator approach, researchers apply OLS to the deviations-from-the-within estimator, which eliminates the fixed effect that is prone to endogeneity. The within-estimator regression is as follows ^[For more detailed, but simplified discussion on the derivation and application of the within-estimator, refer to Roberts and Whited (2013), pp. 558.]. 
+
+\begin{equation}
+Y_{it} = \beta_{1} \Delta X_{it} + \Delta \mu_{it}
+\end{equation}
+
+However, the model does not deal with the potential endogeneity between  $\Delta X_{it}$ and $\mu_{it}$. Besides, differencing reduces the efficiency of the estimates if there is a correlation between the fixed effect (differenced out of the model) and the dependent variable (Clark & Linzer, 2015). Consequently, we run both fixed and random effects, even where the Hausmann test recommends one over the other.
+
+### Variables Definitions and Data Sources 
+
+We source panel data from the Microfinance Information Exchange (MIX) pooled database, the Worldwide Governance Indicators (WGI), and World Development Indicators (WDI) from the World Bank databases. Table 1 below describes the variables.
+
+```{r}
+tribble(~ Variable_Description, 
+
+"1. Debt-to-Equity Ratio: The ratio of total liabilities to equity, the amount of leverage supported by each unit of capital contributed by shareholders. The ratio shows the way an MFI finances its portfolio of assets beyond equity capital to cushion or absorb losses when total assets fall short of all liabilities. Much of the extant research examines the debt-equity mix and its relationship with the performance of MFIs",
+
+"2. Deposits to Total Assets: The ratio of deposits to assets that aids in determining the extent to which MFIs use deposits to finance assets. NGOs transitioning to the commercial model can mobilise deposits  to fund their operations over and above donations and equity",
+
+"3. Capital to Assets Ratio: The ratio of total equity to total assets and a slightly modofied reciprocal of the debt to equity ratio. Hence, it captures the ability to meet obligations and to absorb unexpected losses using capital contributions by the owner (Kimmel, Weygandt, & Kieso, 2018)",
+        
+"4. Current Legal Status: The legal forms of registration of an MFI are as follows; Commercial Bank, Non-Bank Financial Institution (NBFI), Non-Governmental Organization (NGO), Credit Union/ Cooperative, or Rural Bank. The legal status may dictate the profit orientation and sources of capital for the MFIs. The legal status of an MFI may impact the financing structure in several ways. First, legal status or form typically restrict NGOs from taking deposits which lowers both the debt-equity ratio and deposit to assets, hence raising the capital asset ratio. Also, NGOs may not venture into capital markets for funds given their mostly not-for-profit orientation. The opposite is the case for MFIs of commercial banks lega; form whose legal status allows for deposits.", "", 
+        
+"5.	Age: MIX classifies MFIs into three categories depending on the time that has elapsed since the MFI started operations- new (0-4 years), young (4-8 years) and mature (over eight years). The variable is hence a dummy. Older firms are likely better established, have a solid reputation and hence likely to attract more debt and deposits. The correspondence between age and debt is captured in the institutional life cycle view of Bayai and Ikhide (2016).", "", 
+
+"6. Legal Tradition (Legal): The indicator is a dummy variable with common law countries coded 0, civil law countries 1, and 2 otherwise as per the classification by Oto-Peralías and Romero-Ávila (2014). Typically, common law countries have relatively better financial infrastructure that allows firms to easily access financial markets. Hence, MFIs in common law countries may exhibit higher debt and equity ratios in their capital structures than those in common law and other legal traditions. (Schnyder, Gerhard, Mathias Siems, & Ruth V. Aguilera, 2018)", "", 
+
+"7. Size (Log of Total Assets): We proxy the size of MFI with the natural logarithm of total assets, again using MIX data. Assets are supported by the sum of capital and liabilities or equivalently, the total value of resources owned or controlled by the MFI resulting from past and current activities and from which the MFI derives future benefits. We expect firms with more assets to have a higher debt capacity and hence more debt to equity ratio and lower capital to equity ratio. Large firms draw their strength from holding diversified investments and hence higher capacity to absorb risk. Besides, they have easy access to debt markets(Kurshev & Strebulaev, 2015). Furthermore, these firms are likely to attract more deposits, given the trust they inspire in depositors and their marketing reach (Kimmel et al., 2018). We hypothesise that donations vary positively with the size of MFI, as large, older firms have established a reputation with donors.", "", 
+
+"7. Governance/ Institutional Quality (KKM): We create the country level KKM index using the first principal component of the WGI available in the World Bank databases. The index captures the institutional quality in corruption control, government effectiveness, political stability, the rule of law, and voice and accountability (Kaufmann, Kraay, & Mastruzzi, 2011). Firms in countries with better governance can quickly raise debt finance due to ease of contract enforcement — the result, a high debt-equity ratio, and a low capital asset ratio. Similarly, the level of deposits mobilisation may be higher in better-governed countries arising from consumer confidence in legislation relating to deposits protection (La Porta, Lopez-de-Silanes, & Shleifer, 2013; Allen et al., 2014). Lastly, MFIs in countries with low KKM may have higher donations as donors opt to circumvent corrupt government channels.", "", 
+
+"8. Private Credit to GDP: We capture the total amount of credit advanced to the private sector by financial intermediaries as a proxy for capital markets development concerning the banking sector following Ito and Kawai (2018). The data source is the Global Financial Development Database, GFDD, of the World Bank (See note 4). Private credit to GDP represents the financial resources provided to the private sector by domestic money banks as a share of GDP. Domestic money banks comprise commercial banks and other financial institutions that accept transferable deposits, such as demand deposits. The data is available in WDI. Financial sector development is central to the acquisition of both equity and debt financing. We hypothesise a high debt to equity ratio, and deposits to assets ratios in countries with more robust financial sectors as financial institutions tend to be highly leveraged.", "", 
+
+"9. Stock market capitalisation to GDP: We capture the  extent of stock market development using the ratio of stock market capitalisation to GDP to proxy how firms can raise equity capital. Although Africa's equity markets are thin, some relatively large stock markets like South Africa, Kenya, and Ghana exist. The data are from the GFDD.", "", 
+
+"10. GDP annual growth rate (GDP): This is the year on year growth in output adjusted for inflation and sourced from the World Development Indicators (WDI) (See note 2).", "",
+
+"Education: Education is the ratio of gross secondary school enrolment to gross primary school enrolment that captures the extent of graduation from elementary to secondary education and the overall literacy rate. The data is available in the WDI. We hypothesise a positive relationship between education and debt/equity ratio, which implies a lower capital asset ratio. Similarly, education may enhance the capacity of the populace to use financial products like savings, and hence a higher deposit to assets ratio.  Also, education may directly or indirectly influence financial sector development, which eases the acquisition of capital in financial markets (Allen et al., 2014).", "", 
+
+"Asset Structure (Tangibility): Asset structure is is measured as the ratio of non-current assets to total assets of an MFI (Microfinance Information Exchange (MIX), 2019). The ratio indicates the extent of investment in physical infrastructure, a significant issue in constraining banking for the poor due to the perceived lack of scale economies to warrant the erection, for instance, of brick and mortar branches (Ledgerwood, 1998). MFIs with a more significant physical presence are likely to attract more deposits. Therefore, they also have a higher capacity to borrow and service debt. Further, tangible assets serve as collateral to protect lenders from the moral hazard problem (Jensen & Meckling, 1976), and hence a positive relationship between debt and asset tangibility (Titman & Wessels, 1988; Kyereboah-Coleman, 2007a).", "", 
+
+"Profit Margin: ", "The profit margin is the net operating income divided by financial revenue. The ratio represents the ability of MFIs to generate income from the core mandate of offering financial services like lending, savings, insurance, and so on. Profitability may enhance the capacity of an MFI to secure debt; thus leading to a higher debt to equity ratio and low capital to assets ratio. The opposite is the case when an MFI retains earnings and hence raises the level of equity.", "", 
+
+"Region: We divide Africa into two regions, Sub_Sharan Africa and North Africa. The division is in recognition of the heterogeneity in the data where North Africa has only NGO-type MFIs in the sample dataset, probably reflecting religious attitudes towards interest charging, for-profit MFI models.", "") %>% 
+  
+  kbl(., caption = "Description of Variables", booktabs = TRUE, longtable = TRUE) %>% 
+  
+  kable_paper(full_width = TRUE) %>% 
+  
+  footnote(number = c("MIX Database on www.themix.org and https://datacatalog.worldbank.org/dataset/mix-market", "WDI on https://databank.worldbank.org/source/world-development-indicators.", "WGI/ KKM on https://databank.worldbank.org/source/worldwide-governance-indicators.", "GFDD on https://www.worldbank.org/en/publication/gfdr/data/global-financial-development-database"), 
+           
+           number_title = "Notes",
+    
+           general = "Authors' construction from the literature",
+           
+           general_title = "Source: ")
+  
+  #knitr::kable(caption = "Description of variables")
+```
+
+
+## Exploratory Data Analysis 
+
+Figure 2 shows the correlation matrix and scatter plots for the numeric variables used in the empirical  model of this work. Furthermore, debt-to-equity ratio, capital-to-assets ratio, deposits to assets ratio, and donations to assets ratio (the first four entries of the rows and columns) are the dependent variables. The rest are the independent variables, including donations to assets ratio. The main diagonal shows the distribution of the representative variables in place of correlations of a variable with themselves. The main diagonal shows that most variables are highly skewed, except for assets. The lower half of the Table shows the pairwise scatter plots between the variables, with the axis interpreted as we do correlation matrices as described next.
+
+```{r}
+my_data %>% 
+  
+  select(debt_to_equity_ratio, capital_asset_ratio, 
+         
+         deposits_to_total_assets, donations_assets_ratio, 
+         
+         assets, kkm, education, pcrdbgdp, stmktcap,
+         
+         gdp_growth_annual, profit_margin  
+         
+         ) %>% 
+  
+  skimr::skim_without_charts() %>% 
+  
+  select(-n_missing, -complete_rate, -skim_type) %>% 
+  
+  rename(Variable = skim_variable, Mean = numeric.mean, SD = numeric.sd, 
+         
+         Min = numeric.p0, Q1 = numeric.p25, Median = numeric.p50,
+         
+         Q3 = numeric.p75, Max = numeric.p100) %>% 
+  
+  mutate(Variable = stringr::str_to_sentence(Variable)) %>% 
+  
+  kbl(., caption = "Summary Statistics", booktabs = TRUE) %>% 
+  
+  kable_paper(full_width = TRUE, font_size = 10) %>% 
+  
+  footnote( number_title = "Notes",
+    
+           general = "Authors' construction from MIX data",
+           
+           general_title = "Source: ")
+  
+```
+
+
+\blandscape
+
+
+```{r, fig.height = 11, fig.width = 16, fig.align='center', fig.cap="Correlation Matrix for Independent Variables"}
+my_data %>% 
+  
+  select(debt_to_equity_ratio, capital_asset_ratio, 
+         
+         deposits_to_total_assets, donations_assets_ratio, 
+         
+         assets, kkm, education, pcrdbgdp, stmktcap,
+         
+         gdp_growth_annual, profit_margin) %>% 
+  
+ ggpairs(lower = list(continuous = wrap("points", alpha = 0.2, 
+          color = "skyblue"), 
+          combo = wrap("dot_no_facet", alpha = 0.1, size = 0.05)))
+```
+
+
+\elandscape
+
+For dependent variables, there is a substantial negative and significant relationship between capital-asset-ratio (which captures the ratio of equity capital to total assets) and deposits-assets-ratio. The correlations indicate that for MFIs that garner deposits, the injection of equity capital is not a priority as these MFIs, like commercial banks, tend to leverage on deposits and just put in enough equity to meet regulatory requirements. Debt-equity ratio and deposit-asset ratio have a significant positive relationship, although the magnitude is not high. Capital-asset ratio and debt-equity ratio have no meaningful association. For the dependent variables, the highest observed correlation is between education on the one hand and the proxies for capital market development; private credit to GDP and stock market capitalisation to GDP, at 0.461 and 0,538, which is in line with the literature [@]. Consequently, we exclude education from our regressions. 
+
+Finally, except for debt to equity ratio, the other three independent variables have significant correlations with the dependent variables. Specifically, the debt to equity ratio has very low correlation with the other dependent and independent variables. The capital asset ratio has no statistically significant correlation with profit margin and and stock market capitalisation to GDP. Likewise, donations have no significant correlation with GDP growth and education, while deposits exhibit a significant correlation with donations, institutional quality/ governance, and stock market capitalization to GDP. While correlation does not imply causation, these results point to the need for further investigation that we do the section on regression models where we shall revisit this result to allow for an in-depth interrogation of the pertinent issues arising. Table 3 shows the summary statistics for the variables and, importantly, the results of stationarity tests. 
+
+Figure 2 shows the breakdown of the dependent variables across MFI legal status as reported in Table 1. Note that rural banks and commercial banks have the highest median debt to equity and deposits to assets ratios, followed by credit unions, NBFI, and NGOs. The former could indicate ease in accessing capital markets. At the same time, deposits reflect the capacity of banks to mobilise deposits, and for rural banks their focus on niche rural markets with the unbanked populace that makes it easier to garner deposits. The visualization rightly show that rural banks, commercial banks and cooperatives have the highest deposits to assets ratio. Consequently, commercial banks, cooperatives, and rural banks have the least capital assets ratio. The results show that commercial banks and rural banks do emphasise offering a broader range of financial services, specifically savings products in place of credit alone. For NGOs, Garnering deposits is a challenge due to legal hurdles. Coupled with the emphasis on the social aspect of reaching the poor, NGOs would have a more significant difficulty accessing commercial funding compared to other legal types of MFIs. Reinforcing the welfare approach to microfinance, NGOs have the highest median donations to assets ratios, followed by NBFIs, while commercial banks and rural banks come last. These results arise out of the mission of MFIs, where donors fund MFIs that explicitly put a focus on social aspects of reaching the unbanked- meaning that donors still do value the welfare approach to microfinance. 
 
 \blandscape
 
@@ -897,161 +998,95 @@ my_data %>%
 \elandscape
 
 
-## Summary of Results 
-The age of an MFI is the chief driver of leverage (debt-equity ratio). The key drivers of capital to assets ratio for MFIs in Africa are MFI legal status, legal tradition,  size, stock markets development, profitability, and donations. Young and mature MFIs have a lower leverage relative to new MFIs. Similarly, young and mature MFIs have a lower capital to assets ratio compared to new MFIs. The results show that older MFIs tend to rely less on debt and more equity. However, the amount of equity that older MFIs raise is still a smaller proportion of their total assets, given that older MFIs tend to be larger. Furthermore, mature firms are also likely to have lower leverage because they attract more donations and state subsidies. Thus, although the capital structure theory that posits that older firms tend to have higher leverage due to their higher capacity for debt (Gwatidzo & Ojah, 2009), the presence of donations and subsidies for MFIs could dilute the effects of age on financing structure. 
+Figure 3 shows the dependent variables further disaggregated by age. It shows that older firms have marginally higher debt to equity ratios, while older firms receive relatively more deposits than the younger MFIs. The observation could be due to the correspondence between age and the size of MFIs which has a bearing on the ease of accessing capital markets. The access to capital markets is easier for older firms as they typically have more assets to pledge as collateral and hence better credit rating. Thus, older firms tend to have a lower capital to assets ratio as they use relatively more debt contracts to finance their operations. Finally, older firms have more donations to assets ratios which could be due to two reasons. First, older firms older, more established MFIs started when the welfare approach to microfinance was at its peak, and hence have a stronger relationship with donors. In contrast, younger MFIs have started when the paradigm shift to MFI sustainability has taken root, with fewer donors availing financial resources to support MFI start ups.
 
-NGOs have a higher debt to equity and capital to assets ratio relative to commercial banks, NBFIs, credit unions and rural banks. In line with the institutional theory, the results could hold due to the donor and state support that NGOs receive. These additional sources give NGOs enhanced capability to raise capital than the commercial firms which are at the mercy of market pressures. Furthermore, NGOs are able to get credit guarantees and receive equity injections from bilateral and multilateral lenders as well as fiscal incentives to further the agenda of financial inclusion. The support in the form of donations and subsidies for NGOs is warranted given that the majority are not licensed to garner deposits (D’Espallier, Goedecke, Hudon, & Mersland, 2017). For debt to equity ratio, the legal status of an MFI is not significant. 
-
-Legal tradition is not a significant determinant of leverage, although MFIs in common law countries, on average, have higher leverage. For capital to assets ratio, however, legal tradition matters. MFIs in common law countries have higher capital to assets ratio compared to those in civil law and other legal traditions. These results underline the better financial infrastructure in common law countries relative to other legal traditions [@la2013law; @schnyder2018twenty]. The size of MFIs, captured using the logarithm of assets, varies positively with debt-to-equity ratio, and negatively with capital to assets ratio. For debt-to-equity ratio, the relationship is not significant. As expected, larger firms with a wide capital base rely more on internal funds than on the equity market for financing in line with the pecking order theory of capital structure. The ratio of stock market to GDP, donations to assets, and profit margin are significant drivers of capital to assets ratio but do not significantly influence debt to equity ratio. Both profit margin and donations vary positively with capital to assets and dent to equity ratio meaning that they raise the capacity of MFIs to attract both debt and equity capital. However, stock market capitalization is inversely related to leverage and capital to assets ratio. The result could mean that MFIs rarely deal with capital markets, opting instead, to raise finance privately. Also, if stock markets are well developed, it implies that debt markets are well developed which lowers the demand for microfinance overall. In these settings, it is hard for MFIs to raise capital. 
-
-However, going against stylised theoretical facts (Allen et al., 2014), private credit to GDP is not a significant determinant leverage and capital to assets ratios in Africa. Similarly, institutional quality does not significantly relate to both leverage and capital to assets ratio (Campello & Giambona, 2011). GDP growth rate neither significantly affects leverage nor capital to assets ratio. Overall, the results suggest that for MFIs in Africa, firm-level factors matter more in financing structure than macroeconomic factors. With slight deviations, these results are consistent with the capital structure theory (Barclay & Smith, 2005; Ojah & Pillay, 2009). 
-
-## Theoretical Framework 
-
-Like commercial firms, MFIs draw their capital from equity, debt (including deposits). Unlike commercial firms, MFIs have a substantial form of capital in the form of donations and subsidies (D’Espallier et al., 2013). As noted, despite the notable difference in financing structure, the empirical research on the financing of MFIs relates to debt-equity mix (Kyereboah-Coleman, 2007a; Tchakoute-Tchuigoua, 2014, 2015). This study seeks to examine the drivers of the financing structure of MFIs relating to leverage and capital (equity) to assets ratio. The study draws from two theories: the capital structure theory and the institutional (life cycle) theory. 
-
-In the capital structure theories seek to explain the mix of long-term debt and equity in the financing structure of enterprises (Ehrhardt & Brigham, 2016).  The dominant literature in this respect revolves around the Modigliani & Miller capital structure theories, of which the trade-off theory is the most predominant (Sun, Ding, Guo, & Li, 2016). The classic trade-off theory holds that the debt-equity mix is relevant insofar as it generates a debt tax shield which organisations balance with the costs of possible financial distress that comes with high debt levels (Liu et al., 2017). Further, financial distress explains why firms favour easily negotiable debt- which makes firms to approve bank loans in place of capital markets (De Jong, Verbeek, & Verwijmeren, 2011).
-
-The implication is that mature, profitable firms tend to rely on internal sources of capital as do firms with little cash flows and intangible assets. In this case, the trade-off theory corresponds with the pecking order theory of Donaldson and Fox (1961) and Myers and Majluf (1984) which posits that firms issue capital in a predetermined order, usually starting with the cheapest internal sources while maintaining a reserve borrowing capacity. In the case of MFIs, we presume that donations and subsidies would come first in the pecking order. The reserve borrowing capacity allows firms to arrange debt in case of profitable opportunities that arise quickly. Moreover, the trade-off theory has correspondence with the proposition by Bayai and Ikhide (2016) that the capital structure of MFIs evolves with the institutional life-cycle of firms, with younger firms more proportionately reliant on donations and concessionary funds, with older firms more inclined to commercial funding. 
-
-Extending the trade-off theory, Bradley, Jarrell, and Kim (1984) showed that, under certain conditions, the tax disadvantage of debt at the individual level offset the tax disadvantage at the corporate level. The result was the introduction of leverage related costs to the classical trade-off theory. These costs include the bankruptcy costs, agency costs of debt, the loss of non-debt tax shields (such as accelerated depreciation and investment tax credits). The additional leverage related costs mean that firms seek to balance the tax benefits of debt and the leverage-related costs. Miao (2005) show that the choice of financing mix relates to these non-debt tax shields, in addition to financial and trade cycles. Hence the capital structure is firm-specific and mean-reverting. Still, the capital structure theories cannot explain the observed under-leveraged firms. Moreover, while the profit motive drives commercial firms, the capital structure theories may not fully apply to hybrid firms that have a dual mission, like MFIs.
-
-The institutional theory does have some congruence with the capital structure of MFIs. Expressly, the observed rise in debt financing and the concurrent drop in donations could point to a shift by MFIs towards a financially sustainable MFI model. The pressure to move towards the financial sustainability model could reflect a broader change in the MF industry or result from pressure from donors. The pressure would be especially intense for MFIs that are highly dependent on donations (DiMaggio & Powell, 1991), underlining the role of donors such as USAID in the push towards sustainability (Bateman, 2010). Although the institutional theory cannot fully account for the MFIs that have not changed from NGOs to commercial models, the changing capital structures do indicate that financial sustainability is gaining traction. Figure 4 shows that even without a change in legal forms, the proportion of donations is dropping. The next section details the empirical approach adopted in the study. 
-
-## Method
-
-The study adopts the fixed and random effects models depending on the outcome of the Hausman tests (see appendix 2). Following Roberts and Whited (2013), consider a model that follows.
-
-\begin{equation}
-Y_{it} = \beta_{0} + \beta_{1}X_{it} + \mu_{it}
-\end{equation}
-
-Further, assume that,
-
-\begin{equation}
-\mu_{it} = C_{it} + \epsilon_{t}
-\end{equation}
-
-Where  $c_{it}$ captures the aggregate effects of the unobserved, time-invariant explanatory variables for $Y_{it}$ . Further, assume that $e_{it}$ has zero mean conditional on $X_{it}$. In the case where $C_{it}$ and $X_{it}$ are correlated, then $C_{it}$ is a fixed effect; otherwise, it is a random effect. Note that the existence of fixed effects implies the presence of endogeneity. For random effects, on the other hand, endogeneity is not a concern. However, the random-effects model affects the computation of standard errors (Roberts & Whited, 2013).
-
-Thus, the fixed effects models seek the causes of changes within an entity. The fixed-effects model does this by controlling for all time-invariant differences between the individuals, so the estimated coefficients of the fixed-effects models cannot be biased because of omitted time-invariant characteristics, such as culture (Torres-Reyna, 2007). To deal with the endogeneity inherent in the fixed effects model, researchers recommend two strategies. The first approach involves the inclusion of firm-specific intercepts by running the least squares dummy variable regression. The approach is not feasible with medium to large datasets. In the alternative within-estimator approach, researchers apply OLS to the deviations-from-the-within estimator, which eliminates the fixed effect that is prone to endogeneity. The within-estimator regression is as follows ^[For more detailed, but simplified discussion on the derivation and application of the within-estimator, refer to Roberts and Whited (2013), Chapter (), pp. 558.]. 
-
-\begin{equation}
-Y_{it} = \beta_{1} \Delta X_{it} + \Delta \mu_{it}
-\end{equation}
-
-However, the model does not deal with the potential endogeneity between  $\Delta X_{it}$ and $\mu_{it}$. Besides, differencing reduces the efficiency of the estimates if there is a correlation between the fixed effect (differenced out of the model) and the dependent variable (Clark & Linzer, 2015). Consequently, we run both fixed and random effects, even where the Hausmann test recommends one over the other.
-
-### Variables Definitions and Data Sources 
-
-We source panel data from the Microfinance Information Exchange (MIX) pooled database, the Worldwide Governance Indicators (WGI), and World Development Indicators (WDI) from the World Bank databases. Table 1 below describes the variables.
-
-```{r}
-tribble(~ Variable_Description, "1. Current Legal Status: We create a dummy with the MFIs following the NGO Model getting a code of zero, and one in the case of non-bank financial institutions (NBFIs), rural banks, and credit unions/ cooperatives. We assign codes of zero to four for the multinomial logit model for NGOs, Banks, NBFIs, Cooperatives and Rural Banks, respectively. The data are available from the Microfinance Information Exchange, MIX (See source on note 1). The legal status may dictate the profit orientation and sources of capital for the MFIs. The legal status of an MFI may impact the financing structure in several ways. First, legal restrictions typically restrict NGOs from taking deposits which lowers both the debt-equity ratio and deposit to assets, hence raising the capital asset ratio. Also, NGOs may not venture into capital markets for funds given their mostly not-for-profit orientation. The opposite is the case for MFIs like commercial banks whose legal status allows for deposits.", "", 
-        
-"2.	Age: The period in which the MFI has been in operation. MFIs fall into one of three groups: new (1-4 years), young (4-8 years), and mature (over 8 years). The data are available from MIX. Older firms are likely better established, have a solid reputation and hence likely to attract more debt and deposits. The correspondence between age and debt is captured in the institutional life cycle view of Bayai and Ikhide (2016)", "", 
-
-"3. Legal Tradition (Legal): The indicator is a dummy variable with common law countries coded 0, civil law countries 1, and 2 otherwise as per the classification by Oto-Peralías and Romero-Ávila (2014). Typically, common law countries have relatively better financial infrastructure that allows firms to easily access financial markets. Hence, MFIs in common law countries may exhibit higher debt and equity ratios in their capital structures than those in common law and other legal traditions. (Schnyder, Gerhard, Mathias Siems, & Ruth V. Aguilera, 2018)", "", 
-
-"4. Size (Log of Total Assets): We proxy the size of MFI with the natural logarithm of total assets, again using MIX data. Assets are the sum of capital and liabilities- the total value of resources owned or controlled by the MFI resulting from past events and from which the MFI will derive future benefits. We expect firms with more assets to have a higher debt capacity and hence more debt to equity ratio and lower capital to equity ratio. Large firms draw their strength from holding diversified investments and hence higher capacity to absorb risk. Besides, they have easy access to debt markets(Kurshev & Strebulaev, 2015). Besides, these firms would attract more deposits, given the trust they inspire in depositors and marketing reach (Kimmel et al., 2018). We hypothesise that donations vary positively with the size of MFI, as large, older firms have established a reputation with donors.", "", 
-
-"5. Governance/ Institutional Quality (KKM): We take the first principal component of the WGI developed by Daniel Kaufmann, Aart Kraay and Massimo Mastruzzi (KKM) available on the World Bank's Worldwide Governance Indicators, WGI (See source on note 3). Governance and institutional quality are important for two reasons. First, people living in countries with well developed institutions have better access to financial services, which lowers the demand for microfinance. Secondly, better institutions correspond to well developed financial markets, meaning that the existing financial institutions can easily access debt and equity, including deposits. ", "", 
-
-"6. Private Credit to GDP: We capture the total amount of credit advanced to the private sector by financial intermediaries as a proxy for capital markets development concerning the banking sector following Ito and Kawai (2018). The data source is the Global Financial Development Database, GFDD, of the World Bank (See note 4). Private credit to GDP represents the financial resources provided to the private sector by domestic money banks as a share of GDP. Domestic money banks comprise commercial banks and other financial institutions that accept transferable deposits, such as demand deposits. The data is available in WDI. Financial sector development is central to the acquisition of both equity and debt financing. We hypothesise a high debt to equity ratio, and deposits to assets ratios in countries with more robust financial sectors as financial institutions tend to be highly leveraged.", "", 
-
-
-"7. Stock market capitalisation to GDP: We capture the  extent of stock market development using the ratio of stock market capitalisation to GDP to proxy how firms can raise equity capital. Although Africa's equity markets are thin, some relatively large stock markets like South Africa, Kenya, and Ghana exist. The data are from the GFDD.", "", 
-
-"8. GDP annual growth rate (GDP): This is the year on year growth in output adjusted for inflation and sourced from the World Development Indicators (WDI) (See note 2).", "") %>% 
-  
-  kbl(., caption = "Description of Variables", booktabs = TRUE, longtable = TRUE) %>% 
-  
-  kable_paper(full_width = TRUE) %>% 
-  
-  footnote(number = c("MIX Database on www.themix.org and https://datacatalog.worldbank.org/dataset/mix-market", "WDI on https://databank.worldbank.org/source/world-development-indicators.", "WGI/ KKM on https://databank.worldbank.org/source/worldwide-governance-indicators.", "GFDD on https://www.worldbank.org/en/publication/gfdr/data/global-financial-development-database"), 
-           
-           number_title = "Notes",
-    
-           general = "Authors' construction from the literature",
-           
-           general_title = "Source: ")
-  
-  #knitr::kable(caption = "Description of variables")
-```
-
-
-## Exploratory Data Analysis 
-
-Figure 2 shows the correlation matrix and scatter plots for the numeric variables used in the model. Debt-to-equity ratio, capital-to-assets ratio (the first two entries of the rows and columns) are the dependent variables. The rest are the independent variables, including donations to assets ratio. The main diagonal shows the distribution of variables – in place of correlation of a variable with itself. The diagonal shows that most variables are highly skewed, except for assets. To normalize the data, we take the logarithms of these variables. The lower half of the Table shows the pairwise scatter plots between the variables, with the axis interpreted as we do correlation matrices described next.
-
-```{r}
-my_data %>% 
-  
-  select(assets, kkm, education, pcrdbgdp, stmktcap,
-         
-         gdp_growth_annual, donations_assets_ratio, 
-         
-         profit_margin, debt_to_equity_ratio, capital_asset_ratio, 
-         
-         deposits_to_total_assets) %>% 
-  
-  skimr::skim_without_charts() %>% 
-  
-  select(-n_missing, -complete_rate, -skim_type) %>% 
-  
-  rename(Variable = skim_variable, Mean = numeric.mean, SD = numeric.sd, 
-         
-         Min = numeric.p0, Q1 = numeric.p25, Median = numeric.p50,
-         
-         Q3 = numeric.p75, Max = numeric.p100) %>% 
-  
-  mutate(Variable = stringr::str_to_sentence(Variable)) %>% 
-  
-  kbl(., caption = "Summary Statistics", booktabs = TRUE) %>% 
-  
-  kable_paper(full_width = FALSE, font_size = 8) %>% 
-  
-  footnote( number_title = "Notes",
-    
-           general = "Authors' construction from MIX data",
-           
-           general_title = "Source: ")
-  
-```
 
 \blandscape
 
-```{r, fig.height = 11, fig.width = 16, fig.align='center', fig.cap="Correlation Matrix for Independent Variables"}
+```{r, fig.height = 11, fig.width = 16, fig.align='center', fig.cap = "Size, Donations, Debt and Capital of MFIs in Africa"}
+######################################
+######################################
+(my_data %>% 
+  
+  filter(debt_to_equity_ratio > 0) %>% 
+  
+  ggplot(aes(x = fct_reorder(age, debt_to_equity_ratio, median), y = debt_to_equity_ratio, fill = age)) + 
+  
+  geom_boxplot() + 
+  
+  theme(legend.position = "none") + 
+  
+  coord_trans(y = "log10") + 
+   
+  labs(x = "Age", y = "Debt to Equity Ratio", title = "Debt to Equity Ratio by Age") +
+
+########################################
 my_data %>% 
   
-  select(capital_asset_ratio, debt_to_equity_ratio, assets, kkm, pcrdbgdp, stmktcap,
-         
-         gdp_growth_annual, donations_assets_ratio, 
-         
-         profit_margin) %>% 
+  filter(capital_asset_ratio > 0) %>%  
   
- ggpairs(lower = list(continuous = wrap("points", alpha = 0.2, 
-          color = "skyblue"), 
-          combo = wrap("dot_no_facet", alpha = 0.1, size = 0.05)))
+  ggplot(aes(x = fct_reorder(age, capital_asset_ratio, median), y = (capital_asset_ratio + 1), fill = age)) + 
+  
+  geom_boxplot() + 
+  
+  theme(legend.position = "none") + 
+  
+  coord_trans(y = "log10") + 
+  
+  labs(x = "Age", y = "Capital-Asset Ratio", title = "Capital to Assets Ratio by Age")) /
+
+
+
+(my_data %>% 
+   
+   mutate(deposits_to_total_assets = deposits_to_total_assets + 1) %>% 
+  
+  
+  ggplot(aes(x = fct_reorder(age, deposits_to_total_assets, median), 
+             
+             y = deposits_to_total_assets, fill = age)) + 
+  
+  geom_boxplot() + 
+  
+  theme(legend.position = "none") + 
+  
+  coord_trans(y = "log10") + 
+   
+   labs(x = "Age", y = "Deposits to Total Assets Ratio", 
+        
+        title = "Deposits to Total Assets Ratios of MFIs by Age") + 
+   
+   
+   my_data %>% 
+  
+  filter(donations_assets_ratio >= 0) %>% 
+  
+  ggplot(aes(x = fct_reorder(age, donations_assets_ratio, median), 
+             
+             y = donations_assets_ratio + 1, fill = age)) + 
+  
+  geom_boxplot() + 
+  
+  theme(legend.position = "none") + 
+  
+  coord_trans(y = "log10") + 
+   
+   labs(x = "Age", y = "Donations to Assets Ratio", 
+        
+        title = "Donations to Assets Ration by MFI Age")) 
+
+
+
+
 ```
 
 
 \elandscape
 
-For dependent variables, there is a substantial negative and significant relationship between capital-asset-ratio (which captures the ratio of equity capital to total assets) and deposits-assets-ratio. The correlations indicate that for MFIs that garner deposits, the injection of equity capital is not a priority as these MFIs, like commercial banks, tend to leverage on deposits and just put in enough equity to meet regulatory requirements. Debt-equity ratio and deposit-asset ratio have a significant positive relationship, although the magnitude is not high. Capital-asset ratio and debt-equity ratio have no meaningful association. For the dependent variables, the interpretation is similar- with high correlations notable between education, KKM- institutional quality, and financial market development (FINDEV).  
+Finally, Figure 4 shows the trends in the dependent variables over time, with debt to equity ratio trending gradually upwards while capital to assets ratio trends downwards. It shows that over this period, MFIs have steadily been increasing their debt capital as they grow and get to access capital markets.  Likewise, deposits have been trending upwards as more MFIs reach a higher number of consumers or as they mature and get the legal mandate to garner deposits. The trend for the donations to assets ratio is like literature in microfinance suggests; donors have gradually been lessening their contribution to MFIs. The implication here is that both donors and MFIs have gradually been embracing the financial sustainability approach to microfinance, and thus requiring MFIs to be financially sustainable while fulfilling their social mandate. Next, we discuss the results of the regressions. 
 
-Finally, as we expect, most independent variables have significant relationships with the dependent variables. Specifically, for the debt to equity ratio, only financial development is not significant. For deposits to assets ratio, all the independent variables are essential except the profit margin. The capital asset ratio lacks a substantial relationship with profit margin, asset structure, and financial development. While correlation does not imply causation, these results point to the need for further investigation that we do the section on regression models where we shall revisit this result to allow for an in-depth interrogation of the pertinent issues arising. Table 3 shows the summary statistics for the variables and, importantly, the results of stationarity tests. 
-
-Figure 2 shows the distribution of the dependent variables across MFI legal status and MFI age. Note that rural banks and commercial banks have the highest median debt to equity and deposits to assets ratios, followed by credit unions, NBFI, and NGOs. The former could indicate ease in accessing capital markets. At the same time, deposits reflect the capacity of banks to mobilise deposits, and for rural banks their focus on niche rural markets with the unbanked populace that makes it easier to garner deposits.  Consequently, commercial banks and rural banks have the least capital assets ratio. The results show that commercial banks and rural banks do emphasise offering a broader range of financial services, specifically savings products in place of credit alone. For NGOs, Garnering deposits is a challenge due to legal hurdles. Coupled with the emphasis on the social aspect of reaching the poor, NGOs would have a more significant difficulty accessing commercial funding compared to other legal types of MFIs. 
-
-The second row of Figure 2 shows the dependent variables disaggregated by age. It shows that older firms have marginally more debt, while newer firms receive relatively more deposits than the mature MFIs. The observation could be due to the correspondence between age and the size of MFIs which has a bearing on the ease of accessing capital markets. The access to capital markets is easier for older firms as they typically have more assets to pledge as collateral and hence better credit rating. Thus, older firms tend t have a lower capital to assets ratio as they use debt to finance their operations. 
-
-Figure 3 shows the breakdown of donations to assets. As shown in table 1, NGOs have the highest median donations to assets ratios, followed by NBFIs, while commercial banks and rural banks come last. These results arise out of the mission of MFIs, where donors fund MFIs that explicitly put a focus on social aspects of reaching the unbanked- meaning that donors still do value the welfare approach to microfinance. Newer firms tend to have more deposits to assets. The result could be due to two reasons. First, newer firms have fewer assets meaning that the proportion of donations is higher than for the well-established MFIs; with larger MFIs receiving more donor funding in absolute terms. Alternatively, donors could be keener on supporting startups given that they have limited access to capital markets. 
-
-Figure 4 shows the trends in the dependent variables over time, with leverage (debt-equity) trending gradually upwards while capital to assets ratio trends downwards. It shows that over this period, MFIs have steadily been increasing their debt capital as they grow and get to access capital markets.  Likewise, deposits have been trending upwards as more MFIs reach a higher number of consumers or as they mature and get the legal mandate to garner deposits. The trend for the donations to assets ratio is like literature in microfinance suggests; donors have gradually been lessening their relative contribution to MFIs. The implication here is that both donors and MFIs have gradually been embracing the financial sustainability approach to microfinance and require MFIs to be financially sustainable while fulfilling their social mandate.
 
 \blandscape
-
 
 ```{r, fig.height = 11, fig.width = 16, fig.align='center', fig.cap="Trends in Capital, Debt, Deposits, and Donations"}
 ###########################################
@@ -1069,7 +1104,7 @@ Figure 4 shows the trends in the dependent variables over time, with leverage (d
   
   geom_smooth() + 
   
-  labs(x = "Year", y = "Debt/Equity Ratio", title = "Trends in Debt/Equity Ratio") +
+  labs(x = "Year", y = "Debt/Equity Ratio", title = "Trends in Debt to Equity Ratio") +
 
 ############################################################
 my_data %>% 
@@ -1086,7 +1121,7 @@ my_data %>%
   
   geom_smooth() + 
   
-  labs(x = "Year", y = "Capital/Assets Ratio", title = "Trends in Capital Assets Ratio")) /
+  labs(x = "Year", y = "Capital/Assets Ratio", title = "Trends in Capital to Assets Ratio")) /
 
 ##############################################################
 (my_data %>% 
@@ -1129,21 +1164,58 @@ my_data %>%
 
 \elandscape
 
-## Regression Results 
-
-The next section provides a discussion on the output from the regression models starting with the debt-equity ratio (random-effects model), the deposits to total assets ratio (random-effects model), and finally, the capital to assets ratio (fixed-effects model). Appendix () shows the results of the Hausmann Test and the choice over fixed and random effects models.
 
 ```{r}
+my_data %>% 
+  
+  select(asset_structure, assets, pcrdbgdp, 
+         
+         stmktcap, profit_margin, 
+         
+         pcrdbgdp, stmktcap) %>% 
+  
+  skim_without_charts() %>% 
+  
+  mutate(N = 4782) %>% 
+  
+  select(-complete_rate, -n_missing, -skim_type) %>% 
 
+  rename(Variable = skim_variable, 
+         
+         Mean = numeric.mean, SD = numeric.sd, 
+         
+         Min = numeric.p0, Q1 = numeric.p25,
+         
+         Median = numeric.p50, Q3 = numeric.p75, Max = numeric.p100) %>% 
+  
+  relocate(N, .after = Variable) %>% 
+  
+  kbl(., caption = "Summary Statistics for Categrical Independent Variables", 
+      
+      booktabs = TRUE) %>% 
+  
+  kable_paper(full_width = TRUE, font_size = 10) %>% 
+  
+  footnote(general = "Authors' construction from the MIX data",
+           
+           general_title = "Source: ",
+           
+           number = c("Legal status include NGO, Non-Bank Financial Institutions (NBFIs), Credit Unions, and Banks", "Age has mature MFIs older than 8 years, young ones (4 - 8 years), and new ones that are 4 years or less"),
+           number_title = "Note: ")
 ```
 
 
+
+## Regression Results 
+
+This section provides a discussion on the output from the regression models, starting with the debt to equity ratio (random-effects model), the capital to assets ratio, the deposits to total assets ratio, and finally, donations to assets ratio. Appendix 1 shows the results of the Hausmann Test and the choice over fixed and random effects models. For robustness, however, we run both fixed and random effects. The data at hand is an unbalanced panel. For this reason, we ran a random-effects model on the full dataset. We then subset the data for instances with three or more years of data and then five or more years of data. These figures (three and five) correspond to the mean and median number of years of data per MFI in the dataset. Finally, we run a pooled OLS and a fixed-effects model using the full dataset.
+
 ### Drivers of Leverage (Debt-Equity Ratio) in Microfinance Institutions  
 
-Table 3 shows the output of regression models. The data at hand is an unbalanced panel. First, we ran a random-effects model on the full dataset. We then subset the data for instances with three or more years of data and then five or more years of data. These figures (three and five) correspond to the mean and median number of years of data per MFI in the dataset. Finally, we run a pooled OLS and a fixed-effects model using the full dataset. The regressions indicate that at the firm level, the size, profit margin and age matter the most in determining the debt-equity ratio. 
+Table 3 shows the output of the relevant regression models with debt to equity ratio as the dependent variable. The regressions indicate that at the firm level, the size, profit margin and age matter the most in determining the debt-equity ratio. 
 
 #### Age
-The regression output for leverage is in table () below. Age is the only significant determinant of leverage. Specifically, older MFIs have a marginally lower debt to equity ratio and a lower capital to assets ratio compared to newer MFIs. The capital structure theory does not mention the age of a firm as a significant driver of capital structure. However, if age has a direct correspondence with size, then we expect that older MFIs have more debt relative to equity and hence higher leverage and lower capital to assets ratio. Figure (), panel 1 shows that indeed, mature MFIs have more assets than the relatively younger ones. Similarly, the debt equity ratios do not vary greatly between the various ages of MFIs. However, the visualization shows that mature MFIs have a lower capital to assets ratios relative to newer MFIs.
+The regression output for leverage is in table () below. Age and institutional quality or governance index (KKM) are the only significant determinants of leverage. Specifically, older MFIs have a marginally lower debt to equity ratio and a lower capital to assets ratio compared to newer MFIs. The capital structure theory does not mention the age of a firm as a significant driver of capital structure. However, if age has a direct correspondence with size, then we expect that older MFIs have more debt relative to equity and hence higher leverage and lower capital to assets ratio. Figure (), panel 1 shows that indeed, mature MFIs have more assets than the relatively younger ones. Similarly, the debt equity ratios do not vary greatly between the various ages of MFIs. However, the visualization shows that mature MFIs have a lower capital to assets ratios relative to newer MFIs.
 
 #### Size (Assets)
 
@@ -1151,6 +1223,7 @@ Larger MFIs with more assets tend to have a higher debt to equity ratio, holding
 
 
 \blandscape
+
 ```{r, results = "asis"}
 
 fixed_effects_de <- modelling(data = my_data, depvar = my_data$debt_to_equity_ratio)
@@ -1173,9 +1246,9 @@ stargazer(fixed_effects_de, fixed_effects_de3,
           
           title = "Regression Output for Debt to Equity Ratio", 
           
-          align = TRUE, font.size = "tiny", header = FALSE, 
+          align = TRUE, font.size = "footnotesize", header = FALSE, 
           
-          omit = "year.",
+          omit = c("year.", "Constant"),
           
           add.lines = list(c("Model", "Within", "Within", "Within", 
                         
@@ -1186,79 +1259,7 @@ stargazer(fixed_effects_de, fixed_effects_de3,
             "Full", ">=3 Years", ">=5 Years")))
 ```
 
-
-```{r, fig.height = 11, fig.width = 16, fig.align='center', fig.cap = "Size, Donations, Debt and Capital of MFIs in Africa"}
-######################################
-(my_data %>% 
-  
-  filter(assets >= 0) %>% 
-  
-  ggplot(aes(x = fct_reorder(age, assets, mean), y = assets, fill = age)) + 
-  
-  geom_boxplot() + 
-  
-  theme(legend.position = "none") + 
-  
-  coord_trans(y = "log10") + 
-   
-   labs(x = "Age", y = "Assets", title = "Size of MFIs by Age") + 
-   
-   
-   my_data %>% 
-  
-  filter(donations_assets_ratio >= 0) %>% 
-  
-  ggplot(aes(x = fct_reorder(age, donations_assets_ratio, mean), 
-             
-             y = donations_assets_ratio + 1, fill = age)) + 
-  
-  geom_boxplot() + 
-  
-  theme(legend.position = "none") + 
-  
-  coord_trans(y = "log10") + 
-   
-   labs(x = "Age", y = "Donations to Assets Ratio", 
-        
-        title = "Donations to Assets Ration by MFI Age")) /
-
-######################################
-(my_data %>% 
-  
-  filter(debt_to_equity_ratio > 0) %>% 
-  
-  ggplot(aes(x = fct_reorder(age, debt_to_equity_ratio, median), y = debt_to_equity_ratio, fill = age)) + 
-  
-  geom_boxplot() + 
-  
-  theme(legend.position = "none") + 
-  
-  coord_trans(y = "log10") + 
-   
-  labs(x = "Age", y = "Debt to Equity Ratio", title = "Debt to Equity Ratio by Age") +
-
-########################################
-my_data %>% 
-  
-  filter(capital_asset_ratio > 0) %>%  
-  
-  ggplot(aes(x = fct_reorder(age, capital_asset_ratio, median), y = capital_asset_ratio, fill = age)) + 
-  
-  geom_boxplot() + 
-  
-  theme(legend.position = "none") + 
-  
-  coord_trans(y = "log10") + 
-  
-  labs(x = "Age", y = "Capital-Asset Ratio", title = "Capital to Assets Ratio by Age"))
-
-
-```
-
 \elandscape
-
-
-
 
 #### profitability
 
@@ -1268,8 +1269,6 @@ On the other hand, MFIs with higher profit margins have less debt to equity rati
 The legal status of an MFI also appears to impact on leverage marginally. Specifically, except for credit unions/ cooperatives, commercial banks tend to have more leverage than NGOs and NBFIs – although the result is not significant for the latter two. The result could arise due to banks being well established and hence able to access the debt market easily. Cooperatives tend to have a limited geographic scope and restricted membership and rely mostly on members deposits (Pashkova et al., 2016). NGOs, on the other hand, focus more on the social aspects of microfinance (Tchakoute-Tchuigoua, 2010), which could negatively impact their credit rating.
 
 Furthermore, in pursuing social goals, NGOs draw donations and subsidies (D’Espallier, Goedecke, et al., 2017). However, with the increased adoption of the for-profit model by NGOs, coupled with the ability to raise deposits, the gap is blurring (Chahine & Tannir, 2010). Finally, older firms tend to have higher leverage than younger ones, which could be directly related to credit rating quality and having more collateral on account of maturity. 
-
-<Insert regression table>
 
 At the country level, education and financial sector development do not appear to drive leverage significantly, ceteris paribus. These results contradict those of the literature on capital market development that stresses the place of both education and financial sector development in driving financing decisions, uniquely leverage (Ojah & Ombati, 2016; Matias & Serrasqueiro, 2017). 
 
@@ -1304,9 +1303,9 @@ stargazer(fixed_effects_car, fixed_effects_car3,
           
           title = "Regression Output for Capital to Assets Ratio", 
           
-          align = TRUE, font.size = "tiny", header = FALSE, 
+          align = TRUE, font.size = "footnotesize", header = FALSE, 
           
-          omit = "year.",
+          omit = c("year.", "Constant"),
           
           add.lines = list(c("Model", "Within", "Within", "Within", 
                         
@@ -1323,57 +1322,101 @@ Asset structure, financial sector development and education are not significant 
 
 The results also reflect the market conditions where donations and subsidies are getting less available as donors begin to stress sustainability. Mature firms have a long-running relationship with donors and hence rely more on subsidies and donations relative to equity capital. NGOs and NBFIs have higher equity to assets ratio compared to commercial banks- with NGOs having the highest capital to assets ratio. There is no significant relationship between cooperatives and their capital to assets ratio. However, the sign of the coefficient is negative, meaning commercial banks tend to have more equity than cooperatives. Characteristically, commercial banks tend to be more leveraged compared to other financial intermediaries because they have the license and scale to garner deposits and other debt instruments, which could explain the pattern of results. 
 
-<Insert regression model>
-
 #### Deposits to Total Assets
 
 The drivers of deposits to assets in MFIs are country-level institutional quality (KKM) and the legal status of the MFI. KKM relates negatively to deposit mobilisation, holding all other variables constant. These results would imply that as institutional quality improves, people are less likely to maintain deposits, and instead, prefer the capital markets and other sorts of investments. The argument will hold if KKM supports the development of financial and other markets that facilitates investments with better returns than bank deposits offer. Indeed, although mostly insignificant, the degree of capital market development has a negative relationship with deposits to assets ratio which could render credence to the argument. 
 
 \blandscape
 
-```{r, results = "asis", eval = FALSE}
+```{r, results = "asis", eval = TRUE}
 
-fixed_effects_depo <- modelling(data = my_data, depvar = log(my_data$deposits_to_total_assets + 1))
+fixed_effects_depo <- modelling(data = my_data, depvar = my_data$deposits_to_total_assets)
 
-fixed_effects_depo <- modelling(data = data3, depvar = log(data3$deposits_to_total_assets + 1))
+fixed_effects_depo3 <- modelling(data = data3, depvar = data3$deposits_to_total_assets)
 
-fixed_effects_depo <- modelling(data = data5, depvar = log(data5$deposits_to_total_assets + 1))
+fixed_effects_depo5 <- modelling(data = data5, depvar = data5$deposits_to_total_assets)
 
-random_effects_depo <- modelling(data = my_data, depvar = log(my_data$deposits_to_total_assets + 1), model = "random")
+random_effects_depo <- modelling(data = my_data, depvar = my_data$deposits_to_total_assets, model = "random")
 
-random_effects_depo <- modelling(data = data3, depvar = log(data3$deposits_to_total_assets + 1), model = "random")
+random_effects_depo3 <- modelling(data = data3, depvar = data3$deposits_to_total_assets, model = "random")
 
-random_effects_depo <- modelling(data = data5, depvar = log(data5$deposits_to_total_assets + 1), model = "random")
+random_effects_depo5 <- modelling(data = data5, depvar = data5$deposits_to_total_assets, model = "random")
 
 pooling_depo <- modelling(data = my_data, depvar = my_data$deposits_to_total_assets, model = "pooling")
 
 
-#stargazer(fixed_effects_depo, fixed_effects_depo3, 
+stargazer(fixed_effects_depo, fixed_effects_depo3, 
           
-         # fixed_effects_depo5, random_effects_depo, random_effects_depo3, random_effects_depo5,
+         fixed_effects_depo5, random_effects_depo, 
+         
+         random_effects_depo3, random_effects_depo5,
+         
+         pooling_depo, title = "Regression Output for Deposits to Assets Ratio", 
           
-          #title = "Regression Output for Deposits to Assets Ratio", 
+          align = TRUE, font.size = "footnotesize", header = FALSE, 
+         
+          omit = c("year.", "Constant"),
           
-          #align = TRUE, font.size = "tiny", header = FALSE, 
-          
-          #add.lines = list(c("Model", "Within", "Within", "Within", 
+          add.lines = list(c("Model", "Within", "Within", "Within", 
                         
-               #         "Random", "Random", "Random"), 
-          
-          #c("Data", "Full", ">=3 Years", ">=5 Years", 
+            "Random", "Random", "Random"), 
             
-           # "Full", ">=3 Years", ">=5 Years")))
+            c("Data", "Full", ">=3 Years", ">=5 Years", 
+                                             
+            "Full", ">=3 Years", ">=5 Years")))
 ```
 
 \elandscape
 
-The legal status of an MFI is another primary driver the deposit to total earnings ratio for MFIs. NBFIs and NGOs tend to have fewer deposits than commercial banks. For NGOs, the shortage of deposits could be due to legal restrictions on deposit mobilisation. Credit Unions, on the other hand, thrive on taking deposits from members who raise their capacity for deposits mobilisation compared to commercial banks. The results illustrate that although the macroeconomic environment supports greater deposits mobilisations, the extent of the mobilisation will vary depending on the nature of the MFI. Hence, the transformation of MFIs must consider the vision of the organisation. Other features that appear to have a relationship, albeit weakly so are assets structure and financial development, both of which have negative coefficients. The association, however, is not consistent across models.
 
-<Insert regression model>
+The legal status of an MFI is another primary driver the deposit to total earnings ratio for MFIs. NBFIs and NGOs tend to have fewer deposits than commercial banks. For NGOs, the shortage of deposits could be due to legal restrictions on deposit mobilisation. Credit Unions, on the other hand, thrive on taking deposits from members who raise their capacity for deposits mobilisation compared to commercial banks. The results illustrate that although the macroeconomic environment supports greater deposits mobilisations, the extent of the mobilisation will vary depending on the nature of the MFI. Hence, the transformation of MFIs must consider the vision of the organisation. Other features that appear to have a relationship, albeit weakly so are assets structure and financial development, both of which have negative coefficients. The association, however, is not consistent across models.
 
 #### Donations to Assets Ratio
 
 The results in Table 3 show a weak negative but significant link between institutional capacity (KKM) and donations. The results could be explained by the preference of donors to circumvent corrupt government channels in favour of non-state actors in availing development financing in Africa. As in other financing sources, the legal status of MFIs is an essential driver of donations, with commercial banks receiving the least donor funding which could be due to the perceived lack of commitment to the social course of microfinance. Where it is significant, financial development has a negative relationship with donations, meaning that donations flow to countries where MFIs find it harder to raise finance in the capital markets. These results show some deviation from the other sources of finance- given the place of institutional quality which is absent as a driver of other cases. 
+
+\blandscape
+\newpage
+
+```{r, results='asis'}
+fixed_effects_dona <- modelling(data = my_data, depvar = my_data$donations_assets_ratio)
+
+fixed_effects_dona3 <- modelling(data = data3, depvar = data3$donations_assets_ratio)
+
+fixed_effects_dona5 <- modelling(data = data5, depvar = data5$donations_assets_ratio)
+
+random_effects_dona <- modelling(data = my_data, depvar = my_data$donations_assets_ratio, model = "random")
+
+random_effects_dona3 <- modelling(data = data3, depvar = data3$donations_assets_ratio, model = "random")
+
+random_effects_dona5 <- modelling(data = data5, depvar = data5$donations_assets_ratio, model = "random")
+
+pooling_dona <- modelling(data = my_data, depvar = my_data$donations_assets_ratio, model = "pooling")
+
+
+stargazer(fixed_effects_dona, fixed_effects_dona3, 
+          
+         fixed_effects_dona5, random_effects_dona, 
+         
+         random_effects_dona3, random_effects_dona5,
+         
+         pooling_dona, title = "Regression Output for Deposits to Assets Ratio", 
+          
+          align = TRUE, font.size = "footnotesize", header = FALSE, 
+         
+          omit = c("year.", "Constant"),
+          
+          add.lines = list(c("Model", "Within", "Within", "Within", 
+                        
+            "Random", "Random", "Random"), 
+            
+            c("Data", "Full", ">=3 Years", ">=5 Years", 
+                                             
+            "Full", ">=3 Years", ">=5 Years")))
+
+```
+
+\elandscape
 
 The relationship between age and donations is less clear with the coefficients being insignificant in the regressions. Where significant, new firms appear to attract fewer deposits compared to the mature firms, going against the observations in Figure 3. However, in section 7.1, when we winsorise the data to remove outliers, age is no longer an essential driver of donations, which would explain the mixed results in Table 7.
 
@@ -1436,8 +1479,9 @@ hausmann_test(my_data, my_data$deposits_to_total_assets)) %>%
            number_title = "Note: ")
 ```
 
-
+\blandscape
 \newpage
+
 ### Appendix 2: Regressions using Winsorized Data
 
 ```{r, results='asis', fig.cap = "Regressions Using Winsorized Data"}
@@ -1456,9 +1500,9 @@ stargazer(fixed_effects_car_wins, random_effects_car_wins,
           
           title = "Regression Output for Winsorized Data", 
           
-          align = TRUE, font.size = "tiny", header = FALSE, 
+          align = TRUE, font.size = "footnotesize", header = FALSE, 
           
-          omit = "year.",
+          omit = c("year.", "Constant"),
           
           add.lines = list(c("Model", "Within", "Random", "Within", 
                         
@@ -1472,8 +1516,6 @@ stargazer(fixed_effects_car_wins, random_effects_car_wins,
 ```
 
 
-
-\blandscape
 \newpage
 
 ### Appendix 3: Multicollinearity: Variance Inflation Factors
