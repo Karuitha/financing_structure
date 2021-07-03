@@ -995,9 +995,7 @@ my_data %>%
 \elandscape
 
 
-Figure 3 shows the dependent variables further disaggregated by age. It shows that older firms have marginally higher debt to equity ratios, while older firms receive relatively more deposits than the younger MFIs. The observation could be due to the correspondence between age and the size of MFIs which has a bearing on the ease of accessing capital markets. The access to capital markets is easier for older firms as they typically have more assets to pledge as collateral and hence better credit rating. Thus, older firms tend to have a lower capital to assets ratio as they use relatively more debt contracts to finance their operations. Finally, older firms have more donations to assets ratios which could be due to two reasons. First, older firms older, more established MFIs started when the welfare approach to microfinance was at its peak, and hence have a stronger relationship with donors. In contrast, younger MFIs have started when the paradigm shift to MFI sustainability has taken root, with fewer donors availing financial resources to support MFI start ups.
-
-Finally, Figure 4 shows the trends in the dependent variables over time, with debt to equity ratio trending gradually upwards while capital to assets ratio trends downwards. It shows that over this period, MFIs have steadily been increasing their debt capital as they grow and get to access capital markets.  Likewise, deposits have been trending upwards as more MFIs reach a higher number of consumers or as they mature and get the legal mandate to garner deposits. The trend for the donations to assets ratio is like literature in microfinance suggests; donors have gradually been lessening their contribution to MFIs. The implication here is that both donors and MFIs have gradually been embracing the financial sustainability approach to microfinance, and thus requiring MFIs to be financially sustainable while fulfilling their social mandate. Next, we discuss the results of the regressions. 
+Finally, Figure 3 shows the trends in the dependent variables over time, with debt to equity ratio trending gradually upwards while capital to assets ratio trends downwards. It shows that over this period, MFIs have steadily been increasing their debt capital as they grow and get to access capital markets.  Likewise, deposits have been trending upwards as more MFIs reach a higher number of consumers or as they mature and get the legal mandate to garner deposits. The trend for the donations to assets ratio is like literature in microfinance suggests; donors have gradually been lessening their contribution to MFIs. The implication here is that both donors and MFIs have gradually been embracing the financial sustainability approach to microfinance, and thus requiring MFIs to be financially sustainable while fulfilling their social mandate. Next, we discuss the results of the regressions. 
 
 
 \blandscape
@@ -1162,11 +1160,6 @@ my_data %>%
            number_title = "Note: ")
 ```
 
-
-
-
-
-
 ## Regression Results 
 
 This section provides a discussion on the output from the regression models, starting with the debt to equity ratio (random-effects model), the capital to assets ratio, the deposits to total assets ratio, and finally, donations to assets ratio. Appendix 1 shows the results of the Hausmann Test and the choice over fixed and random effects models. For robustness, however, we run both fixed and random effects. The data at hand is an unbalanced panel. For this reason, we ran a random-effects model on the full dataset. We then subset the data for instances with three or more years of data and then five or more years of data. These figures (three and five) correspond to the mean and median number of years of data per MFI in the dataset. Finally, we run a pooled OLS and a fixed-effects model using the full dataset.
@@ -1176,20 +1169,13 @@ This section provides a discussion on the output from the regression models, sta
 Table 3 shows the output of the relevant regression models with debt to equity ratio as the dependent variable. The regressions indicate that at the firm level, the age of an MFI matter the most in determining the debt to equity ratio. At the macro-level, institutional quality is a significant driver of leverage.
 
 #### Age
-The regression output for leverage is in Table 5 below. For age, new MFIs (0-4 years) in Africa have significantly higher debt to equity ratio than young MFIs (4-8 years), on average. However, there is no significant difference between the leverage of new MFIs and mature MFIs (8 years and above). This result means that the oldest firms and the newest MFIs tend to finance their operations with more equity relative to debt. Given that equity is riskier than debt, it follows that investors have more confidence in older MFIs and youngest MFIs. The capital structure theory does not mention the age of a firm as a significant driver of capital structure. However, if age has a direct correspondence with size, then we expect that older, larger MFIs are more profitable (a source of internal equity) and can attract long term equity funding due to their track record. The relatively high debt to equity ratio of new MFIs could reflect the emphasis on financial sustainability of MFIs which makes start ups to resort to relatively more debt to finance their operations due to reduced availability of donations and government subsidies. Without the initial support from donors, equity funders deem start up MFIs too risky. Without the initial seed capital in the form of donations and concessionary funds, the institutional lifecycle theory of @bayai2016financing may not hold. 
+The regression output for leverage is in Table 5 below. For age, new MFIs (0-4 years) in Africa have significantly higher debt to equity ratio than young MFIs (4-8 years), on average. However, there is no significant difference between the leverage of new MFIs and mature MFIs (8 years and above), although the coefficient has a negative sign suggesting lower debt to equity ratio. This result means that the oldest firms and the newest MFIs tend to finance their operations with more equity relative to debt. Given that equity is riskier than debt, it follows that investors have more confidence in older MFIs and youngest MFIs. The capital structure theory does not mention the age of a firm as a significant driver of capital structure. However, if age has a direct correspondence with size, then we expect that older, larger MFIs are more profitable (a source of internal equity) and can attract long term equity funding due to their track record []. The relatively high debt to equity ratio of new MFIs could reflect the emphasis on financial sustainability of MFIs which makes start ups to resort to relatively more debt to finance their operations due to reduced availability of donations and government subsidies []. Without the initial support from donors, equity funders deem start up MFIs too risky. Without the initial seed capital in the form of donations and concessionary funds, the institutional lifecycle theory of @bayai2016financing may not hold. 
 
 
 #### Institutional Quality (KKM)
 
 Institutional quality or governance (KKM) has an inverse relationship with the debt to equity ratio of MFIs in Africa. Higher KKM corresponds to lower debt to equity ratio, and vice versa, implying that MFIs in high KKM countries rely more on equity relative to debt. Research on capital structure theory shows that indeed governance matters in determining the ease of contract enforcement and safeguarding property rights [@].  Governance also reflects in effective regulation of capital markets, and hence better capital markets development [Matias and Serrasqueiro, 2017; Ojah and
 Ombati, 2016]. In the case of MFIs, better KKM may encourage long term equity investment relative to debt investment and hence the observed relationship.
-
-#### Other Insignificant variables
-
-Larger MFIs with more assets tend to have a higher debt to equity ratio, holding other variables in the models constant. However, this effect is not significant in both the fixed and random effects models. In this case, a unit rise in assets corresponds to upto 0.3 units rise in leverage going by the fixed and random-effects model. The result is consistent with the capital structure theory (Barclay and Smith, 2005; Barclay et al., 2006). Large firms can use the assets as collateral for debt and usually tend to be well established with a solid credit history and hence can quickly source funds in the capital markets (Campello & Giambona, 2011; Ojah & Ombati, 2016). Moreover, firms size corresponds to lower information asymmetry as the firm is well established with a traceable track record and well developed and reliable accounting information systems. With this hindsight, larger MFIs have a better chance of surviving the conversion to the commercial model, given that they have better access to the financial markets for funds. It also implies that, given the easy access to both internal and external funding, established MFIs are likely to better balance between financial goals and the social mandate of reaching out to the financially excluded. In this case, it is possible for larger MFIs to use their resources to lend to the relatively wealthy at market rates while subsidizing, or offering zero margins services to the financially excluded [@mia2017mission]. This way, larger MFIs are less prone to mission drift and could even experience mission expansion after conversion [@mersland2010microfinance]. 
-
-Legal tradition is also an insignificant driver of debt to equity ratio, with the commercial MFIs having lower debt to equity ratio than NGOs. Asset structure and profit margin have a negative but insignificant relationship with debt to equity ratio. Retained profits form part of internal equity and hence reduce leverage. However, theory shows that higher asset structure, that is, more fixed assets relative to total assets corresponds to more leverage [(Campello and
-Giambona , 2011; Ojah and Ombati , 2016).]. However, total assets hows a positive relationship with leverage in line with theory. Both stock market and debt market capitalization show mixed results in their relationship with leverage. 
 
 
 \blandscape
@@ -1234,7 +1220,7 @@ stargazer(fixed_effects_de, fixed_effects_de3,
 
 ### Drivers of Capital to Assets Ratio in Microfinance Institutions  
 
-Regression results for the drivers of the capital-assets ratio among MFIs in Africa appear in Table 4. Capital assets ratio is the ratio of total equity to total assets. Going by the definition, we expect the opposite of the results obtained in section 7.1. Again, legal status, age, size and stock market development are related to the equity to total assets ratio. We examine these significant variables in turns. 
+Regression results for the drivers of the capital-assets ratio among MFIs in Africa appear in Table 4. Capital assets ratio is the ratio of total equity to total assets. Again, legal status, age, legal tradition, and stock market development are related to the equity to total assets ratio. We examine these significant variables in turns. 
 
 #### Current Legal Status:
 
@@ -1244,11 +1230,7 @@ The results also reflect the market conditions where donations and subsidies are
 
 #### Age:
 
-Young (4-8 years) and mature (8 years and over) MFIs have lower capital to assets ratios, on average, than new MFIs (0-4 years). The mean and median capital to assets ratio These results are also in line with the literature on capital structure. Older firms are likely larger with more assets to pledge as collateral and hence can easily raise funds in the debt markets []. Also, as MFIs mature, they are likely to graduate from the loans only model to start accepting deposits which further raises their leverage. Overall, this makes the equity component smaller relative to the debt component. In the capital structure literature, age is not a significant driver of capital structure except through its link to the size of an MFI as we discuss next. 
-
-#### Size: 
-
-The size of an MFI is negatively related to capital assets ratio in line with the capital structure theory. Larger MFIs have more absolute amounts of assets to pledge as collateral, meaning that they have lower equity relative to debt, and hence, a lower capital to asset ratio (or alternatively, a higher debt to equity ratio). Older MFIs are likely to be larger which links to the previous result on the relationship between age and capital to assets ratio. Hence, these results are in line with the literature on capital structure theory which shows that larger firms tend to be more leveraged.
+The Capital to asset ratio of MFIs in Africa decreases with age. Young (4-8 years) and mature (8 years and over) MFIs have lower capital to assets ratios, on average, than new MFIs (0-4 years). The mean and median capital to assets ratio These results are also in line with the literature on capital structure. Older firms are likely larger with more assets to pledge as collateral and hence can easily raise funds in the debt markets []. Also, as MFIs mature, they are likely to graduate from the loans only model to start accepting deposits which further raises their leverage. Overall, this makes the equity component smaller relative to the debt component. In the capital structure literature, age is not a significant driver of capital structure except through its link to the size of an MFI as we discuss next. 
 
 #### Legal Tradition: 
 
@@ -1260,7 +1242,7 @@ There is a weak negative but statistically significant relationship between stoc
 
 #### Other Insignificant Variables
 
-Governance or institutional quality (KKM), asset structure, private credit to GDP, and profit margin are statistically insignificant drivers of capital to assets ratio. However, KKM and private credit to GDP both have a positive relationship with capital to assets ratio which reflects the importance of institutions both in the development of debt and equity markets. The relationship between profit margin and capital to assets ratio shows mixed results which may highlight the low profitability of MFIs in Africa (see appendix 7). 
+Governance or institutional quality (KKM), asset structure, private credit to GDP, and profit margin are statistically insignificant drivers of capital to assets ratio. However, KKM and private credit to GDP both have a positive relationship with capital to assets ratio which reflects the importance of institutions both in the development of debt and equity markets. The relationship between assets structure and profit margin on the one hand, and capital to assets ratio on the other, shows mixed results which may highlight the low profitability of MFIs in Africa (see appendix 7). 
 
   
 \blandscape
@@ -1309,23 +1291,29 @@ The deposits to assets ratio has a positive relationship with MFI legal form, ag
 
 #### Current Legal Status
 
-NGO-type MFIs have lower deposits to assets ratio than commercial banks, credit unions/ cooperatives, NBFIs, and rural banks. These results arise out of the differing business models. NGOs have taken root dependent on donations and subsidies with little emphasis on deposit mobilisation []. For instance, Credit Unions, on the other hand, thrive on taking deposits from members who raise their capacity for deposits mobilisation compared to NGOs. Also, legal restrictions on mobilising deposits by entities not under the oversight of central banks also contribute to the low levels of deposits []. As expected rural banks, commercial banks and cooperatives have the highest mean and median deposits to assets ratios which reflects their high deposits-driven leverage levels []. 
+NGO-type MFIs have lower deposits to assets ratio than commercial banks, credit unions/ cooperatives, NBFIs, and rural banks. These results arise out of the differing business models. NGOs have taken root dependent on donations and subsidies with little emphasis on deposit mobilisation []. For instance, Credit Unions, on the other hand, thrive on taking deposits from members who raise their capacity for deposits mobilisation compared to NGOs. For NGOs, the lower deposits to assets ratio could be due to legal restrictions on deposit mobilisation by entities not under the oversight of central banks []. As expected rural banks, commercial banks and cooperatives have the highest mean and median deposits to assets ratios. Commercial banks and Credit Unions thrive on taking deposits from members who raise their capacity for deposits mobilisation compared to commercial banks. which reflects their high deposits-driven leverage levels []. 
 
 #### Age
 
-Older MFIs have higher deposits to assets ratio than younger MFIs. This result reflects the regional presence of older, larger MFIs in many locations. Also, older MFIs have invested in information technology that allows them to reach people in remote locations. 
+Older MFIs have higher deposits to assets ratio than younger MFIs. This result reflects the wider regional presence of older, larger MFIs [] and better goodwill from the public. Also, older MFIs have invested in information technology that allows them to reach people in remote locations []. Again, older MFIs are likely to have attained deposit mobilisation licenses from relevant regulatory bodies, mostly central banks. The results are in line with capital structure theory where the size of an MFI, which is also positively related with age, has a significant relationship with leverage. For most financial intermediaries, the largest source of debt financing is deposits []. 
 
 #### Legal Tradition
 
+MFIs in countries with civil law and other legal traditions tend to have a higher deposits to assets ratio than those in common law countries, with MFIs in civil law countries having the highest ratio. It means that MFIs in common law countries finance their operations using more equity relative to civil law countries. These results are in line with the higher levels of capital markets development in common law countries [] that allows MFIs to easily raise equity capital and debt capital in a form other than deposits. 
+
 #### Institutional Quality (KKM)
+
+The institutional quality or governance (KKM) has a weak negative relationship with deposits to assets ratio, holding all other variables constant. In other words, MFIs located in countries with better governance rely less on deposits and more on alternative forms of finance, namely equity and debt, than MFIs with lower governance metrics. These results would imply that as institutional quality improves, people are less likely to maintain deposits, and instead, prefer the capital markets and other sorts of investments. The argument will hold if KKM supports the development of financial and other markets that facilitates investments with better returns than bank deposits offer. Indeed, although mostly insignificant, the degree of capital market development has a negative relationship with deposits to assets ratio which could render credence to the argument. 
 
 #### Asset Structure
 
-#### Size (Logarithm of Assets)
+Asset structure or asset tangibility has a mixed relationship with deposits to assets ratio, ceteris paribus. However, capital structure theory shows that firms can use tangible assets as collateral for debt funding. Thus, firms with more tangible assets usually have more debt at a lower cost than firms with less tangible assets (Campello and Giambona , 2011; Ojah and Ombati , 2016). However, the rise of information technology means that MFIs no longer have to hold high levels of tangible (fixed) assets, especially in the form of property, plant and equipment to reach the unbanked population []. Except for older firms that had already invested in many branches before information technology took root, asset structure is likely to be indignificant in deposits mobilisation []. 
 
 #### Profit Margin
 
-#### Other Insignificant Variables
+Profit margin has a positive but very low positive relationship with deposits to assets ratio. The result could hold given that profitable MFIs reach more consumers by opening more branches or investing more in information technology []. Moreover, in line with the capital structure theory, Profitable firms are usually large and mature with free cash flows to support debt repayment
+and thus hold more debt. Firms take up debt to minimise cash that managers could misallocate.
+The debtholders act as delegated monitors and further act to monitor management (Barclay and Smith , 2005; Gwatidzo and Ojah , 2009; Ojah and Ombati, 2016).Finally, both stock market capitalization to GDP and private credit to GDP have no significant effect on the deposits to assets ratio.  
 
 \blandscape
 
@@ -1372,7 +1360,49 @@ stargazer(fixed_effects_depo, fixed_effects_depo3,
 
 #### Drivers of Donations to Assets Ratio
 
-The results in Table 3 show a weak negative but significant link between institutional capacity (KKM) and donations. The results could be explained by the preference of donors to circumvent corrupt government channels in favour of non-state actors in availing development financing in Africa. As in other financing sources, the legal status of MFIs is an essential driver of donations, with commercial banks receiving the least donor funding which could be due to the perceived lack of commitment to the social course of microfinance. Where it is significant, financial development has a negative relationship with donations, meaning that donations flow to countries where MFIs find it harder to raise finance in the capital markets. These results show some deviation from the other sources of finance- given the place of institutional quality which is absent as a driver of other cases. 
+Donations to assets ration shows the strongest relationship with the variables in the regression with all but the stock market to GDP ratio showing a significant relationship. We discuss these relationships next. 
+
+Current legal status: Compared to other legal forms of MFIs, NGOs have the highest proportion of donations to assets. The result is expected given that the microfinance industry started off as a not-for-profit model with NGO as the legal form of choice []. These poineer NGOs have developed relationships with donors over time than the younger MFIs. Hence, donations are likely to flow to these NGOs from the donors still keen on the welfare approach to microfinance where outreach to the financially excluded is more important than profitability. Late entrants into the microfinance industry find a changed landscape where financial sustainability is also important and hence have to resort to commercial funding []. 
+
+Age: Older, larger firms have a smaller donations to assets ratio than younger, smaller firms. The result holds due to the relatively larger assets base of older MFIs. Table () shows that older MFIs (that is, young and mature) still receive more donations in absolute terms than younger ones. Hence, as MFIs grow, the relative importance of donations diminishes as they build their asset base. However, older MFIs still retain a stronger financial relationship with donors [].
+
+```{r}
+my_data %>% 
+  
+  group_by(age) %>% 
+  
+  summarise(Mean_donations = mean(donations),
+            Mean_donations_Assets = mean(donations_assets_ratio), 
+            Median_donations = median(donations),
+            Median_donations_Assets = median(donations_assets_ratio)) %>% 
+  set_names(names(.) %>% str_to_sentence()) %>% 
+  
+  kbl(., caption = "Mean and Median Donations and Donations to Assets Ratio", booktabs = TRUE, longtable = TRUE) %>% 
+  
+  kable_paper(full_width = TRUE) %>% 
+  
+  footnote(number = "Younger MFIs have higher donations to assets ratios but lower absolute donations", 
+           
+           number_title = "Notes",
+    
+           general = "Authors' construction from the literature",
+           
+           general_title = "Source: ")
+  
+  
+```
+
+Legal tradition
+
+MFIs located in common law countries have a higher and statistically significant donations to assets ratio than those in civil law countries. The theoretical link in this case is that from the law and finance literature where common law countries exhibit higher levels of financial development []. The higher levels of financial development further derive from the better institutional quality. MFIs in countries with better institutional quality are more likely to attract donations, presumably because their is a lower incidence of corruption which may drive donors away. The next section shows that indeed, institutional quality positively relates to donations to assets ratio [].
+
+Institutional Quality (KKM): As the relationship between legal tradition and donations implies, institutional quality has a positive relationship with donations to assets ratio. The result shows that donors do care about the relative levels of accountability in a country before choosing to donate funds to MFIs because there is a higher likelihood the cash will benefit the intended target, the financially excluded. 
+
+Asset structure: Asset structure has a positive relationship with donations to assets ratio. It follows that MFIs with more property, plant and equipment which implies they are larger and older, receive more donations relative to their assets. These results could hold given that, as noted earlier, larger, older firms have a prolonged and elaborate relationship with donors than the relatively younger MFIs. 
+
+Private credit to GDP: MFIs located in countries with better developed debt markets have lower donations to assets ratios. For an MFI in a well developed capital market, there are alternative avenues for raising funds to finance assets which lowers the relative contribution of donations. 
+
+Profit margin: As is the case with private credit to GDP, a more profitable MFI can retain more earnings to finance operations. Consequently, the proportion of donations that goes into financing assets diminishes. Likewise, profitable MFIs are more likely to raise funds from banks which is in line with the capital structure theory []. 
 
 \blandscape
 \newpage
