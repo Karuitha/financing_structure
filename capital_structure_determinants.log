@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.3.25)  3 JUL 2021 20:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.3.25)  5 JUL 2021 18:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -854,6 +854,9 @@ LaTeX Warning: Label `' multiply defined.
 
 LaTeX Warning: Label `' multiply defined.
 
+
+LaTeX Warning: Label `' multiply defined.
+
 )
 \openout1 = `capital_structure_determinants.aux'.
 
@@ -1020,108 +1023,110 @@ LaTeX Font Warning: Font shape `T2A/SourceSansPro-LF/b/n' undefined
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 191.
+(Font)              <10> on input line 193.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 191.
+(Font)              <7> on input line 193.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 191.
+(Font)              <5> on input line 193.
 
-Overfull \hbox (44.13828pt too wide) in paragraph at lines 224--224
+pdfTeX warning (font expansion): font should be expanded before its first use
+
+Overfull \hbox (44.13828pt too wide) in paragraph at lines 226--226
 []\T2A/SourceSansPro-LF/m/it/10 (-20) debt_to_equity_ratio|  
  []
 
 
-Overfull \hbox (44.13828pt too wide) in paragraph at lines 224--224
+Overfull \hbox (44.13828pt too wide) in paragraph at lines 226--226
 []\T2A/SourceSansPro-LF/m/it/10 (-20) debt_to_equity_ratio|  
  []
 
 
-Overfull \hbox (44.13828pt too wide) in paragraph at lines 224--224
+Overfull \hbox (44.13828pt too wide) in paragraph at lines 226--226
 []\T2A/SourceSansPro-LF/m/it/10 (-20) debt_to_equity_ratio|  
  []
 
 
-Overfull \hbox (44.13828pt too wide) in paragraph at lines 224--224
+Overfull \hbox (44.13828pt too wide) in paragraph at lines 226--226
 []\T2A/SourceSansPro-LF/m/it/10 (-20) debt_to_equity_ratio|  
  []
 
 
-Overfull \hbox (44.13828pt too wide) in paragraph at lines 224--224
+Overfull \hbox (44.13828pt too wide) in paragraph at lines 226--226
 []\T2A/SourceSansPro-LF/m/it/10 (-20) debt_to_equity_ratio|  
  []
 
 
-Overfull \hbox (32.00568pt too wide) in paragraph at lines 224--224
+Overfull \hbox (32.00568pt too wide) in paragraph at lines 226--226
 []\T2A/SourceSansPro-LF/m/it/10 (-20) capital_asset_ratio|  
  []
 
 
-Overfull \hbox (32.00568pt too wide) in paragraph at lines 224--224
+Overfull \hbox (32.00568pt too wide) in paragraph at lines 226--226
 []\T2A/SourceSansPro-LF/m/it/10 (-20) capital_asset_ratio|  
  []
 
 
-Overfull \hbox (32.00568pt too wide) in paragraph at lines 224--224
+Overfull \hbox (32.00568pt too wide) in paragraph at lines 226--226
 []\T2A/SourceSansPro-LF/m/it/10 (-20) capital_asset_ratio|  
  []
 
 
-Overfull \hbox (32.00568pt too wide) in paragraph at lines 224--224
+Overfull \hbox (32.00568pt too wide) in paragraph at lines 226--226
 []\T2A/SourceSansPro-LF/m/it/10 (-20) capital_asset_ratio|  
  []
 
 
-Overfull \hbox (32.00568pt too wide) in paragraph at lines 224--224
+Overfull \hbox (32.00568pt too wide) in paragraph at lines 226--226
 []\T2A/SourceSansPro-LF/m/it/10 (-20) capital_asset_ratio|  
  []
 
 
-Overfull \hbox (58.00209pt too wide) in paragraph at lines 224--224
+Overfull \hbox (58.00209pt too wide) in paragraph at lines 226--226
 []\T2A/SourceSansPro-LF/m/it/10 (-20) deposits_to_total_assets|  
  []
 
 
-Overfull \hbox (58.00209pt too wide) in paragraph at lines 224--224
+Overfull \hbox (58.00209pt too wide) in paragraph at lines 226--226
 []\T2A/SourceSansPro-LF/m/it/10 (-20) deposits_to_total_assets|  
  []
 
 
-Overfull \hbox (58.00209pt too wide) in paragraph at lines 224--224
+Overfull \hbox (58.00209pt too wide) in paragraph at lines 226--226
 []\T2A/SourceSansPro-LF/m/it/10 (-20) deposits_to_total_assets|  
  []
 
 
-Overfull \hbox (58.00209pt too wide) in paragraph at lines 224--224
+Overfull \hbox (58.00209pt too wide) in paragraph at lines 226--226
 []\T2A/SourceSansPro-LF/m/it/10 (-20) deposits_to_total_assets|  
  []
 
 
-Overfull \hbox (58.00209pt too wide) in paragraph at lines 224--224
+Overfull \hbox (58.00209pt too wide) in paragraph at lines 226--226
 []\T2A/SourceSansPro-LF/m/it/10 (-20) deposits_to_total_assets|  
  []
 
 
-Overfull \hbox (48.44388pt too wide) in paragraph at lines 224--224
+Overfull \hbox (48.44388pt too wide) in paragraph at lines 226--226
 []\T2A/SourceSansPro-LF/m/it/10 (-20) donations_assets_ratio|  
  []
 
 
-Overfull \hbox (48.44388pt too wide) in paragraph at lines 224--224
+Overfull \hbox (48.44388pt too wide) in paragraph at lines 226--226
 []\T2A/SourceSansPro-LF/m/it/10 (-20) donations_assets_ratio|  
  []
 
 
-Overfull \hbox (48.44388pt too wide) in paragraph at lines 224--224
+Overfull \hbox (48.44388pt too wide) in paragraph at lines 226--226
 []\T2A/SourceSansPro-LF/m/it/10 (-20) donations_assets_ratio|  
  []
 
 
-Overfull \hbox (48.44388pt too wide) in paragraph at lines 224--224
+Overfull \hbox (48.44388pt too wide) in paragraph at lines 226--226
 []\T2A/SourceSansPro-LF/m/it/10 (-20) donations_assets_ratio|  
  []
 
 
-Overfull \hbox (48.44388pt too wide) in paragraph at lines 224--224
+Overfull \hbox (48.44388pt too wide) in paragraph at lines 226--226
 []\T2A/SourceSansPro-LF/m/it/10 (-20) donations_assets_ratio|  
  []
 
@@ -1130,333 +1135,328 @@ as been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.227 \end{landscape}
+l.229 \end{landscape}
                      ] [4
 
 
 ] [5] [6]
-Overfull \hbox (5.63196pt too wide) in alignment at lines 551--551
+Overfull \hbox (5.63196pt too wide) in alignment at lines 550--550
  [] 
  []
 
 [7] [8]
-Overfull \hbox (52.50307pt too wide) in paragraph at lines 593--593
+Overfull \hbox (52.50307pt too wide) in paragraph at lines 592--592
 []\T2A/SourceSansPro-LF/m/it/10 (-20) Debt_to_equity_ratio|  
  []
 
 
-Overfull \hbox (41.05086pt too wide) in paragraph at lines 593--593
+Overfull \hbox (41.05086pt too wide) in paragraph at lines 592--592
 []\T2A/SourceSansPro-LF/m/it/10 (-20) Capital_asset_ratio|  
  []
 
 
-Overfull \hbox (66.36688pt too wide) in paragraph at lines 593--593
+Overfull \hbox (66.36688pt too wide) in paragraph at lines 592--592
 []\T2A/SourceSansPro-LF/m/it/10 (-20) Deposits_to_total_assets|  
  []
 
 
-Overfull \hbox (56.80867pt too wide) in paragraph at lines 593--593
+Overfull \hbox (56.80867pt too wide) in paragraph at lines 592--592
 []\T2A/SourceSansPro-LF/m/it/10 (-20) Donations_assets_ratio|  
  []
 
 
-Overfull \hbox (45.35342pt too wide) in paragraph at lines 593--593
+Overfull \hbox (45.35342pt too wide) in paragraph at lines 592--592
 []\T2A/SourceSansPro-LF/m/it/10 (-20) Gdp_growth_annual|  
  []
 
 
-Overfull \hbox (15.52266pt too wide) in paragraph at lines 593--593
+Overfull \hbox (15.52266pt too wide) in paragraph at lines 592--592
 []\T2A/SourceSansPro-LF/m/it/10 (-20) Profit_margin|  
  []
 
-[9] [10pdfTeX warning (ext4): destination with the same identifier (name{table.
-3}) has been already used, duplicate ignored
+[9pdfTeX warning (ext4): destination with the same identifier (name{table.3}) h
+as been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.596 \begin{landscape}
+l.595 \begin{landscape}
                        ]
 <capital_structure_determinants_files/figure-latex/unnamed-chunk-15-1.pdf, id=7
-8, 1156.32pt x 794.97pt>
+4, 1156.32pt x 794.97pt>
 File: capital_structure_determinants_files/figure-latex/unnamed-chunk-15-1.pdf 
 Graphic file (type pdf)
 <use capital_structure_determinants_files/figure-latex/unnamed-chunk-15-1.pdf>
 Package pdftex.def Info: capital_structure_determinants_files/figure-latex/unna
-med-chunk-15-1.pdf  used on input line 600.
+med-chunk-15-1.pdf  used on input line 599.
 (pdftex.def)             Requested size: 650.4284pt x 447.16953pt.
 
-LaTeX Warning: Float too large for page by 1.35847pt on input line 605.
+LaTeX Warning: Float too large for page by 1.35847pt on input line 604.
 
-[11pdfTeX warning (ext4): destination with the same identifier (name{figure.1})
+[10pdfTeX warning (ext4): destination with the same identifier (name{figure.1})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.607 \end{landscape}
+l.606 \end{landscape}
                       <./capital_structure_determinants_files/figure-latex/unna
-med-chunk-15-1.pdf>] [12
+med-chunk-15-1.pdf>] [11
 
 
 ]
-<capital_structure_determinants_files/figure-latex/unnamed-chunk-16-1.pdf, id=1
-00, 1156.32pt x 794.97pt>
+<capital_structure_determinants_files/figure-latex/unnamed-chunk-16-1.pdf, id=9
+6, 1156.32pt x 794.97pt>
 File: capital_structure_determinants_files/figure-latex/unnamed-chunk-16-1.pdf 
 Graphic file (type pdf)
 <use capital_structure_determinants_files/figure-latex/unnamed-chunk-16-1.pdf>
 Package pdftex.def Info: capital_structure_determinants_files/figure-latex/unna
-med-chunk-16-1.pdf  used on input line 668.
+med-chunk-16-1.pdf  used on input line 667.
 (pdftex.def)             Requested size: 650.4284pt x 447.16953pt.
 
-LaTeX Warning: Float too large for page by 1.35847pt on input line 673.
+LaTeX Warning: Float too large for page by 1.35847pt on input line 672.
 
-[13pdfTeX warning (ext4): destination with the same identifier (name{figure.2})
+[12pdfTeX warning (ext4): destination with the same identifier (name{figure.2})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.675 \end{landscape}
+l.674 \end{landscape}
                       <./capital_structure_determinants_files/figure-latex/unna
-med-chunk-16-1.pdf>] [14
+med-chunk-16-1.pdf>] [13
 
 
 ]
 <capital_structure_determinants_files/figure-latex/unnamed-chunk-17-1.pdf, id=1
-25, 1156.32pt x 794.97pt>
+21, 1156.32pt x 794.97pt>
 File: capital_structure_determinants_files/figure-latex/unnamed-chunk-17-1.pdf 
 Graphic file (type pdf)
 <use capital_structure_determinants_files/figure-latex/unnamed-chunk-17-1.pdf>
 Package pdftex.def Info: capital_structure_determinants_files/figure-latex/unna
-med-chunk-17-1.pdf  used on input line 695.
+med-chunk-17-1.pdf  used on input line 696.
 (pdftex.def)             Requested size: 650.4284pt x 447.16953pt.
 
-LaTeX Warning: Float too large for page by 1.35847pt on input line 700.
+LaTeX Warning: Float too large for page by 1.35847pt on input line 701.
 
-[15pdfTeX warning (ext4): destination with the same identifier (name{figure.3})
+[14pdfTeX warning (ext4): destination with the same identifier (name{figure.3})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.702 \end{landscape}
+l.703 \end{landscape}
                       <./capital_structure_determinants_files/figure-latex/unna
 med-chunk-17-1.pdf>]
 <capital_structure_determinants_files/figure-latex/unnamed-chunk-18-1.pdf, id=1
-39, 1156.32pt x 794.97pt>
+35, 1156.32pt x 794.97pt>
 File: capital_structure_determinants_files/figure-latex/unnamed-chunk-18-1.pdf 
 Graphic file (type pdf)
 <use capital_structure_determinants_files/figure-latex/unnamed-chunk-18-1.pdf>
 Package pdftex.def Info: capital_structure_determinants_files/figure-latex/unna
-med-chunk-18-1.pdf  used on input line 708.
+med-chunk-18-1.pdf  used on input line 709.
 (pdftex.def)             Requested size: 650.4284pt x 447.16953pt.
 
-LaTeX Warning: Float too large for page by 1.35847pt on input line 713.
+LaTeX Warning: Float too large for page by 1.35847pt on input line 714.
 
-[16pdfTeX warning (ext4): destination with the same identifier (name{figure.4})
+[15pdfTeX warning (ext4): destination with the same identifier (name{figure.4})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.715 \end{landscape}
+l.716 \end{landscape}
                       <./capital_structure_determinants_files/figure-latex/unna
 med-chunk-18-1.pdf>]
-Overfull \hbox (26.97304pt too wide) in paragraph at lines 737--737
+Overfull \hbox (26.97304pt too wide) in paragraph at lines 738--738
 []\T2A/SourceSansPro-LF/m/it/10 (-20) asset_structure|  
  []
 
 
-Overfull \hbox (3.89423pt too wide) in paragraph at lines 737--737
+Overfull \hbox (3.89423pt too wide) in paragraph at lines 738--738
  []\T2A/SourceSansPro-LF/m/it/10 (-20) 0.000e+00|
  []
 
 
-Overfull \hbox (3.89423pt too wide) in paragraph at lines 737--737
+Overfull \hbox (3.89423pt too wide) in paragraph at lines 738--738
  []\T2A/SourceSansPro-LF/m/it/10 (-20) 0.000e+00|
  []
 
 
-Overfull \hbox (20.82233pt too wide) in paragraph at lines 737--737
+Overfull \hbox (20.82233pt too wide) in paragraph at lines 738--738
 []\T2A/SourceSansPro-LF/m/it/10 (-20) profit_margin|  
  []
 
 
-Overfull \hbox (3.89423pt too wide) in paragraph at lines 737--737
+Overfull \hbox (3.89423pt too wide) in paragraph at lines 738--738
  \T2A/SourceSansPro-LF/m/it/10 (-20) 3.550e+04|
  []
 
 
-Overfull \hbox (7.45096pt too wide) in paragraph at lines 722--738
+Overfull \hbox (7.45096pt too wide) in paragraph at lines 723--739
  [][] 
  []
 
-[17pdfTeX warning (ext4): destination with the same identifier (name{table.4}) 
+[16pdfTeX warning (ext4): destination with the same identifier (name{table.4}) 
 has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.807 
+l.809 
       
 
 
 
 
-] [18]
-Overfull \hbox (54.93353pt too wide) in paragraph at lines 814--872
- [][] 
- []
+] [17] [18
 
-
-LaTeX Warning: Float too large for page by 45.22145pt on input line 872.
-
-[19pdfTeX warning (ext4): destination with the same identifier (name{table.5}) 
-has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{table.5}) has
+ been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.874 \end{landscape}
-                     ] [20
+l.876 \end{landscape}
+                     ] [19
 
+] [20] [21
 
-] [21]
-Overfull \hbox (76.65265pt too wide) in paragraph at lines 985--1043
- [][] 
- []
-
-
-LaTeX Warning: Float too large for page by 45.22145pt on input line 1043.
-
-[22pdfTeX warning (ext4): destination with the same identifier (name{table.6}) 
-has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{table.6}) has
+ been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1045 \end{landscape}
-                      ] [23
+l.1047 \end{landscape}
+                      ] [22
 
+] [23] [24
 
-] [24]
-Overfull \hbox (188.97946pt too wide) in paragraph at lines 1159--1217
- [][] 
- []
-
-
-LaTeX Warning: Float too large for page by 45.22145pt on input line 1217.
-
-[25pdfTeX warning (ext4): destination with the same identifier (name{table.7}) 
-has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{table.7}) has
+ been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1219 \end{landscape}
+l.1221 \end{landscape}
                       ]
-Overfull \hbox (23.04668pt too wide) in paragraph at lines 1262--1262
+Overfull \hbox (23.04668pt too wide) in paragraph at lines 1264--1264
  []\T2A/SourceSansPro-LF/m/it/10 (-20) Mean_donations_assets|
  []
 
 
-Overfull \hbox (31.21135pt too wide) in paragraph at lines 1262--1262
+Overfull \hbox (31.21135pt too wide) in paragraph at lines 1264--1264
  []\T2A/SourceSansPro-LF/m/it/10 (-20) Median_donations_assets|
  []
 
-[26
+[25
 
+] [26
 
-] [27]
-Overfull \hbox (208.69955pt too wide) in paragraph at lines 1311--1369
- [][] 
- []
-
-
-LaTeX Warning: Float too large for page by 45.22145pt on input line 1369.
-
-[28pdfTeX warning (ext4): destination with the same identifier (name{table.9}) 
-has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{table.9}) has
+ been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1371 \end{landscape}
-                      ] [29
+l.1372 \end{landscape}
+                      ] [27
 
+] [28] [29] [30
 
-] [30]
-
-LaTeX Warning: Float too large for page by 45.22145pt on input line 1579.
-
-[31
-
-] [32pdfTeX warning (ext4): destination with the same identifier (name{table.11
-}) has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{table.11}) ha
+s been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1581 \newpage
+l.1660 \newpage
+               ] [31pdfTeX warning (ext4): destination with the same identifier
+ (name{table.12}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1732 \newpage
                ]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 1592.
-[33pdfTeX warning (ext4): destination with the same identifier (name{table.12})
+(Font)              <9> on input line 1743.
+[32pdfTeX warning (ext4): destination with the same identifier (name{table.13})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1614 \end{landscape}
+l.1765 \end{landscape}
                       ]
-Overfull \hbox (5.17477pt too wide) in paragraph at lines 1636--1636
+Overfull \hbox (5.17477pt too wide) in paragraph at lines 1787--1787
 []\T2A/SourceSansPro-LF/m/it/9 (-20) Independent_variable|  
  []
 
-[34pdfTeX warning (ext4): destination with the same identifier (name{table.13})
+
+Underfull \hbox (badness 10000) in paragraph at lines 1796--1823
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1796--1823
+
+ []
+
+[33pdfTeX warning (ext4): destination with the same identifier (name{table.14})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1639 \newpage
-               
+l.1824 \begin{landscape}
+                        
 
 ]
-LaTeX Font Info:    Trying to load font information for T2A+lmtt on input line 
-1645.
-No file T2Almtt.fd.
-
-LaTeX Font Warning: Font shape `T2A/lmtt/m/n' undefined
-(Font)              using `T2A/cmr/m/n' instead on input line 1645.
-
-[35]
-<capital_structure_determinants_files/figure-latex/unnamed-chunk-30-1.pdf, id=3
-16, 1131.22626pt x 736.7525pt>
-File: capital_structure_determinants_files/figure-latex/unnamed-chunk-30-1.pdf 
-Graphic file (type pdf)
-<use capital_structure_determinants_files/figure-latex/unnamed-chunk-30-1.pdf>
-Package pdftex.def Info: capital_structure_determinants_files/figure-latex/unna
-med-chunk-30-1.pdf  used on input line 1665.
-(pdftex.def)             Requested size: 650.45004pt x 423.6294pt.
 <capital_structure_determinants_files/figure-latex/unnamed-chunk-31-1.pdf, id=3
-17, 469.755pt x 325.215pt>
+21, 697.60625pt x 339.2675pt>
 File: capital_structure_determinants_files/figure-latex/unnamed-chunk-31-1.pdf 
 Graphic file (type pdf)
 <use capital_structure_determinants_files/figure-latex/unnamed-chunk-31-1.pdf>
 Package pdftex.def Info: capital_structure_determinants_files/figure-latex/unna
-med-chunk-31-1.pdf  used on input line 1678.
+med-chunk-31-1.pdf  used on input line 1834.
+(pdftex.def)             Requested size: 650.4596pt x 316.33861pt.
+[34
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) ha
+s been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1841 \newpage
+                <./capital_structure_determinants_files/figure-latex/unnamed-ch
+unk-31-1.pdf>]
+<capital_structure_determinants_files/figure-latex/unnamed-chunk-32-1.pdf, id=3
+37, 697.60625pt x 338.26375pt>
+File: capital_structure_determinants_files/figure-latex/unnamed-chunk-32-1.pdf 
+Graphic file (type pdf)
+<use capital_structure_determinants_files/figure-latex/unnamed-chunk-32-1.pdf>
+Package pdftex.def Info: capital_structure_determinants_files/figure-latex/unna
+med-chunk-32-1.pdf  used on input line 1845.
+(pdftex.def)             Requested size: 650.4596pt x 315.4027pt.
+[35pdfTeX warning (ext4): destination with the same identifier (name{figure.6})
+ has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1852 \end{landscape}
+                       <./capital_structure_determinants_files/figure-latex/unn
+amed-chunk-32-1.pdf>]
+<capital_structure_determinants_files/figure-latex/unnamed-chunk-33-1.pdf, id=3
+51, 469.755pt x 325.215pt>
+File: capital_structure_determinants_files/figure-latex/unnamed-chunk-33-1.pdf 
+Graphic file (type pdf)
+<use capital_structure_determinants_files/figure-latex/unnamed-chunk-33-1.pdf>
+Package pdftex.def Info: capital_structure_determinants_files/figure-latex/unna
+med-chunk-33-1.pdf  used on input line 1862.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1866.
 [36
 
-] [37pdfTeX warning (ext4): destination with the same identifier (name{figure.5
-}) has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) ha
+s been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1682 \end{landscape}
-                       <./capital_structure_determinants_files/figure-latex/unn
-amed-chunk-30-1.pdf>] [38pdfTeX warning (ext4): destination with the same ident
-ifier (name{figure.6}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.1682 \end{landscape}
-                       <./capital_structure_determinants_files/figure-latex/unn
-amed-chunk-31-1.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1684.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1684.
+l.1866 \end{document}
+                      <./capital_structure_determinants_files/figure-latex/unna
+med-chunk-33-1.pdf>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1866.
 (./capital_structure_determinants.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1684.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1684.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1866.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1866.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -1465,32 +1465,32 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 15973 strings out of 481745
- 235310 string characters out of 5930830
- 566257 words of memory out of 5000000
- 30511 multiletter control sequences out of 15000+600000
- 577125 words of font info for 129 fonts, out of 8000000 for 9000
+ 15985 strings out of 481745
+ 236272 string characters out of 5930830
+ 560446 words of memory out of 5000000
+ 30508 multiletter control sequences out of 15000+600000
+ 576402 words of font info for 129 fonts, out of 8000000 for 9000
  891 hyphenation exceptions out of 8191
- 43i,17n,43p,997b,594s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 43i,17n,43p,1122b,594s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t2a.enc}{/usr/share/texmf
-/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.en
-c}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}</usr/share/texmf/fonts/ty
-pe1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi7.pfb></us
-r/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/pub
-lic/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/t
-exmf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr
-8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy6.pfb></usr/share/texmf/fonts
-/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm06
-00.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0700.pfb></usr/share/t
-exmf/fonts/type1/public/cm-super/sfrm0800.pfb></usr/share/texmf/fonts/type1/pub
-lic/cm-super/sfrm0900.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm100
-0.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/te
-xmf/fonts/type1/public/cm-super/sfrm1728.pfb>
-Output written on capital_structure_determinants.pdf (38 pages, 8742226 bytes).
+/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.en
+c}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}</usr/share/texmf/fonts/ty
+pe1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi5.pfb></us
+r/share/texmf/fonts/type1/public/lm/lmmi7.pfb></usr/share/texmf/fonts/type1/pub
+lic/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr5.pfb></usr/share/t
+exmf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lms
+y5.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0500.pfb></usr/share/t
+exmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf/fonts/type1/pub
+lic/cm-super/sfrm0700.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm080
+0.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/share/te
+xmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/publ
+ic/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728
+.pfb>
+Output written on capital_structure_determinants.pdf (36 pages, 9791019 bytes).
 
 PDF statistics:
- 515 PDF objects out of 1000 (max. 8388607)
- 436 compressed objects within 5 object streams
- 143 named destinations out of 1000 (max. 500000)
- 22751 words of extra memory for PDF output out of 24883 (max. 10000000)
+ 530 PDF objects out of 1000 (max. 8388607)
+ 451 compressed objects within 5 object streams
+ 156 named destinations out of 1000 (max. 500000)
+ 20716 words of extra memory for PDF output out of 20736 (max. 10000000)
 
