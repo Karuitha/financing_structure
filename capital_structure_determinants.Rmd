@@ -217,7 +217,7 @@ mutate(currentlegalstatus = factor(currentlegalstatus,
          
          average_loan_balance_per_borrower, gross_loan_portfolio_to_total_assets, 
          
-         deposits_to_total_assets) %>% 
+         deposits_to_total_assets, liabilities_and_equity) %>% 
   
           ## Rename region
          rename(region = region.x) %>% 
@@ -260,10 +260,13 @@ mutate(currentlegalstatus = factor(currentlegalstatus,
          
          operating_expense_assets = replace_na(operating_expense_assets, median(operating_expense_assets, na.rm = TRUE)),
          
-         deposits_to_total_assets = replace_na(deposits_to_total_assets, median(deposits_to_total_assets, na.rm = TRUE))
+         deposits_to_total_assets = replace_na(deposits_to_total_assets, median(deposits_to_total_assets, na.rm = TRUE)), 
          
+average_loan_balance_per_borrower = replace_na(average_loan_balance_per_borrower, median(average_loan_balance_per_borrower, na.rm = TRUE)),
+    
+liabilities_and_equity = replace_na(liabilities_and_equity, median(liabilities_and_equity, na.rm = TRUE)  
          
-         ) %>% 
+         )) %>% 
   
   ungroup() %>% 
   
@@ -307,7 +310,11 @@ mutate(currentlegalstatus = factor(currentlegalstatus,
          
          operating_expense_assets = replace_na(operating_expense_assets, median(operating_expense_assets, na.rm = TRUE)),
          
-         deposits_to_total_assets = replace_na(deposits_to_total_assets, median(deposits_to_total_assets, na.rm = TRUE))
+average_loan_balance_per_borrower = replace_na(average_loan_balance_per_borrower, median(average_loan_balance_per_borrower, na.rm = TRUE)),
+         
+         deposits_to_total_assets = replace_na(deposits_to_total_assets, median(deposits_to_total_assets, na.rm = TRUE)), 
+         
+liabilities_and_equity = replace_na(liabilities_and_equity, median(deposits_to_total_assets, na.rm = TRUE))
          
          ) %>% 
   
@@ -701,6 +708,14 @@ The contribution of our study goes beyond previous research in this area of scho
 
 The following section highlights the study results, followed by a review of supporting theory and empirical literature. We then describe data and data sources, followed by the research method. We discuss the results and then conclude. 
 
+## Summary of Results 
+The results of the data analysis show that the age of an MFI and governance/ institutional quality are the chief drivers of leverage (debt to equity ratio). The capital to assets ratio for MFIs in Africa has statistically significant relationships with MFI legal status, age, and legal tradition. MFI legal status, age, legal tradition, and profit margin are the key drivers of the deposits to assets ratio. MFI legal form, age, legal tradition, institutional quality, asset structure, private credit, and profit margin drive the donations to assets ratio. Young and mature MFIs have lower leverage relative to new MFIs. At the same time, institutional quality has a negative relationship with the debt to equity ratio. However, after removing influential observations, MFI legal form, asset structure, and profit margin become statistically significant leverage drivers. Specifically, NGOs have lower leverage than the commercial MFIs: banks, credit unions, NBFIs, and rural banks. Asset structure has a negative relationship with the debt to equity ratio, meaning that MFIs with more tangible assets finance their operations using relatively more equity than debt. Likewise, the profit margin negatively affects the debt to equity ratio, given that profits are part of equity. 
+
+NGOs have a consistently lower capital to assets ratio than other legal forms. Older MFIs have lower proportions of capital to asset, while institutional quality negatively affects capital assets ratio. The relationship between the percentage of capital to assets and asset structure is mixed. Stock market capitalisation to GDP has a negative relationship with capital to assets ratio, while profit margin has a weak positive relationship. After removing outliers, assets structure shows a positive relationship with capital assets ratio, while private credit to GDP has a significant positive relationship with capital to assets ratio. NGOs have consistently lower deposits to assets ratio than other legal forms of MFIs.
+
+In comparison, MFIs in civil and other legal traditions have a higher ratio than MFIs in civil law countries. Ceteris paribus, asset structure has a positive relationship with deposits to assets ratio. Without outliers, institutional quality private credit to GDP, stock market capitalisation to GDP, and profit margin also have a statistically significant relationship with deposits to assets ratio. Finally, the considerable drivers of the donations to assets ratio are MFI legal form, age, legal tradition, institutional quality, asset structure, private credit to GDP and profit margin. Specifically, NGOs have a higher ratio of donations to assets, while older MFIs and MFIs located in countries with civil law and other legal traditions have a lower ratio. Profit margin has a negative relationship with the donations to assets ratio, while institutional quality, assets structure, and private credit to GDP have the opposite effect. 
+
+
 \blandscape
 
 ```{r}
@@ -714,8 +729,7 @@ my_data %>%
   skim_without_charts(debt_to_equity_ratio, capital_asset_ratio, 
                       
                       ## More variables
-                      deposits_to_total_assets, donations_assets_ratio) %>% 
-  mutate(N = 4782) %>% 
+                      deposits_to_total_assets, donations_assets_ratio) %>%
   
   select(-complete_rate, -n_missing, -skim_type) %>% 
 
@@ -727,31 +741,40 @@ my_data %>%
          
          Median = numeric.p50, Q3 = numeric.p75, Max = numeric.p100) %>% 
   
-  relocate(N, .after = Legal_form) %>% 
+  mutate(Variable = if_else(Variable == "debt_to_equity_ratio", "Debt/Equity", 
+                            
+                            Variable), 
+         
+         Variable = if_else(Variable == "capital_asset_ratio", "Capital/Assets", 
+                            
+                            Variable), 
+         
+         Variable = if_else(Variable == "donations_assets_ratio", "Donations/Assets", 
+                            
+                            Variable),
+         
+         Variable = if_else(Variable == "deposits_to_total_assets", "Donations/Assets", 
+                            
+                            Variable)
+         
+         
+         ) %>% 
   
   kbl(., caption = "Summary Statistics for Categrical Independent Variables", 
       
       booktabs = TRUE) %>% 
   
-  kable_paper(full_width = TRUE, font_size = 10) %>% 
+  kable_paper(full_width = TRUE, font_size = 8) %>% 
   
   footnote(general = "Authors' construction from the MIX data",
            
            general_title = "Source: ",
            
-           number = c("Legal status include NGO, Non-Bank Financial Institutions (NBFIs), Credit Unions, and Banks", "Age has mature MFIs older than 8 years, young ones (4 - 8 years), and new ones that are 4 years or less"),
+           number = c("N = 4782", "Legal status include NGO, Non-Bank Financial Institutions (NBFIs), Credit Unions, and Banks", "Age has mature MFIs older than 8 years, young ones (4 - 8 years), and new ones that are 4 years or less"),
            number_title = "Note: ")
 ```
 
 \elandscape
-
-
-## Summary of Results 
-The results of the data analysis show that the age of an MFI and governance/ institutional quality are the chief drivers of leverage (debt to equity ratio). The capital to assets ratio for MFIs in Africa has statistically significant relationships with MFI legal status, age, and legal tradition. MFI legal status, age, legal tradition, and profit margin are the key drivers of the deposits to assets ratio. MFI legal form, age, legal tradition, institutional quality, asset structure, private credit, and profit margin drive the donations to assets ratio. Young and mature MFIs have lower leverage relative to new MFIs. At the same time, institutional quality has a negative relationship with the debt to equity ratio. However, after removing influential observations, MFI legal form, asset structure, and profit margin become statistically significant leverage drivers. Specifically, NGOs have lower leverage than the commercial MFIs: banks, credit unions, NBFIs, and rural banks. Asset structure has a negative relationship with the debt to equity ratio, meaning that MFIs with more tangible assets finance their operations using relatively more equity than debt. Likewise, the profit margin negatively affects the debt to equity ratio, given that profits are part of equity. 
-
-NGOs have a consistently lower capital to assets ratio than other legal forms. Older MFIs have lower proportions of capital to asset, while institutional quality negatively affects capital assets ratio. The relationship between the percentage of capital to assets and asset structure is mixed. Stock market capitalisation to GDP has a negative relationship with capital to assets ratio, while profit margin has a weak positive relationship. After removing outliers, assets structure shows a positive relationship with capital assets ratio, while private credit to GDP has a significant positive relationship with capital to assets ratio. NGOs have consistently lower deposits to assets ratio than other legal forms of MFIs.
-
-In comparison, MFIs in civil and other legal traditions have a higher ratio than MFIs in civil law countries. Ceteris paribus, asset structure has a positive relationship with deposits to assets ratio. Without outliers, institutional quality private credit to GDP, stock market capitalisation to GDP, and profit margin also have a statistically significant relationship with deposits to assets ratio. Finally, the considerable drivers of the donations to assets ratio are MFI legal form, age, legal tradition, institutional quality, asset structure, private credit to GDP and profit margin. Specifically, NGOs have a higher ratio of donations to assets, while older MFIs and MFIs located in countries with civil law and other legal traditions have a lower ratio. Profit margin has a negative relationship with the donations to assets ratio, while institutional quality, assets structure, and private credit to GDP have the opposite effect. 
 
 
 ## Theoretical Framework 
@@ -843,6 +866,8 @@ tribble(~ Variable_Description,
 
 Figure 2 shows the correlation matrix and scatter plots for the numeric variables used in this work's empiricalmodel. Furthermore, the debt-to-equity ratio, capital-to-assets ratio, deposits to assets ratio, and donations to assets ratio (the first four entries of the rows and columns) are the dependent variables. The rest are the independent variables, including the donations to assets ratio. The main diagonal shows the distribution of the representative variables in place of correlations of a variable with themselves. The main diagonal shows that most variables are highly skewed, except for assets. The lower half of the Table shows the pairwise scatter plots between the variables, with the axis interpreted as we do correlation matrices as described next.
 
+\blandscape
+
 ```{r}
 my_data %>% 
   
@@ -879,6 +904,7 @@ my_data %>%
            general_title = "Source: ")
   
 ```
+\elandscape
 
 
 \blandscape
@@ -907,7 +933,9 @@ Finally, except for the debt to equity ratio, the other three independent variab
 
 Figure 2 shows the breakdown of the dependent variables across MFI legal status as reported in Table 1. Note that rural banks and commercial banks have the highest median debt to equity and deposits to assets ratios, followed by credit unions, NBFI, and NGOs. The former could indicate ease in accessing capital markets. At the same time, deposits reflect the capacity of banks to mobilise deposits. Their focus on niche rural markets with the unbanked populace makes it easier to garner deposits for rural banks. The visualisation rightly shows that rural banks, commercial banks and cooperatives have the highest deposits to assets ratio.
 
-Consequently, commercial banks, cooperatives, and rural banks have the lowest capital to assets ratio. The results show that commercial banks and rural banks emphasise offering a broader range of financial services, specifically savings products in place of credit alone. For NGOs, Garnering deposits is a challenge due to legal hurdles. Coupled with the emphasis on the social aspect of reaching the poor, NGOs would have a more significant difficulty accessing commercial funding compared to other legal types of MFIs. Reinforcing the welfare approach to microfinance, NGOs have the highest median donations to assets ratios, followed by NBFIs, while commercial banks and rural banks come last. These results arise out of the mission of MFIs, where donors fund MFIs that explicitly focus on social aspects of reaching the unbanked- meaning that donors still do value the welfare approach to microfinance. 
+Consequently, commercial banks, cooperatives, and rural banks have the lowest capital to assets ratio. The results show that commercial banks and rural banks emphasise offering a broader range of financial services, specifically savings products in place of credit alone. For NGOs, Garnering deposits is a challenge due to legal hurdles. Coupled with the emphasis on the social aspect of reaching the poor, NGOs would have a more significant difficulty accessing commercial funding compared to other legal types of MFIs. Reinforcing the welfare approach to microfinance, NGOs have the highest median donations to assets ratios, followed by NBFIs, while commercial banks and rural banks come last. These results arise out of the mission of MFIs, where donors fund MFIs that explicitly focus on social aspects of reaching the unbanked- meaning that donors still do value the welfare approach to microfinance.
+
+Finally, Figure 3 shows the trends in the dependent variables over time, with the debt to equity ratio trending gradually upwards while the capital to assets ratio trends downwards. It shows that MFIs have steadily been increasing their debt capital over this period as they grow and get to access capital markets.  Likewise, deposits have been trending upwards as more MFIs reach a higher number of consumers or as they mature and get the legal mandate to garner deposits. The trend for the donations to assets ratio is like literature in microfinance suggests; donors have gradually reduced their relative contribution to MFIs. Alternatively, MFIs are less reliant on donations as they grow, given that donations form a decreasing proportion of their assets base. The implication here is that both donors and MFIs have gradually embraced the financial sustainability approach to microfinance, thus requiring MFIs to be financially sustainable while fulfilling their social mandate. Next, we discuss the results of the regressions. 
 
 \blandscape
 
@@ -992,9 +1020,6 @@ my_data %>%
 ```
 
 \elandscape
-
-
-Finally, Figure 3 shows the trends in the dependent variables over time, with the debt to equity ratio trending gradually upwards while the capital to assets ratio trends downwards. It shows that MFIs have steadily been increasing their debt capital over this period as they grow and get to access capital markets.  Likewise, deposits have been trending upwards as more MFIs reach a higher number of consumers or as they mature and get the legal mandate to garner deposits. The trend for the donations to assets ratio is like literature in microfinance suggests; donors have gradually reduced their relative contribution to MFIs. Alternatively, MFIs are less reliant on donations as they grow, given that donations form a decreasing proportion of their assets base. The implication here is that both donors and MFIs have gradually embraced the financial sustainability approach to microfinance, thus requiring MFIs to be financially sustainable while fulfilling their social mandate. Next, we discuss the results of the regressions. 
 
 
 \blandscape
@@ -1250,6 +1275,22 @@ The results also reflect the market conditions where donations and subsidies are
 
 **Other Insignificant Variables:** Governance or institutional quality (KKM), asset structure, private credit to GDP, and profit margin are statistically insignificant capital to assets ratio drivers. However, KKM and private credit to GDP both have a positive relationship with capital to assets ratio, reflecting the importance of institutions both in the development of debt and equity markets. The relationship between assets structure and profit margin on the one hand, and capital to assets ratio on the other, shows mixed results, which may highlight the low profitability of MFIs in Africa (see appendix 7). 
 
+### Drivers of Deposits to Total Assets
+
+The deposits to assets ratio have a positive relationship with MFI legal form, age, asset structure, size (logarithm of assets), and profit margin. The significant drivers of the deposits to assets ratio at the macro-level are legal tradition and institutional quality (KKM). Proxies for capital markets development, private credit to GDP and stock markets development to GDP do not significantly affect deposits to assets ratio. We discuss each of these relationships next. 
+
+**Current Legal Status:** NGO-type MFIs have lower deposits to assets ratio than commercial banks, credit unions/ cooperatives, NBFIs, and rural banks. These results arise out of the different business models. NGOs have taken root dependent on donations and subsidies with little emphasis on deposit mobilisation [@d2013unsubsidized; @d2017ngos]. For instance, Credit Unions, on the other hand, thrive on taking deposits from members who raise their capacity for deposits mobilisation compared to NGOs. For NGOs, the lower deposits to assets ratio could be due to legal restrictions on deposit mobilisation by entities not under central banks' oversight [@lauer2008transforming]. As expected, rural banks, commercial banks and cooperatives have the highest mean and median deposits to assets ratios. Commercial banks and Credit Unions thrive on taking deposits from members who raise their capacity for deposits mobilisation compared to commercial banks, reflecting their high deposits-driven leverage levels [@abbas2020commercial]. 
+
+**Age:** Older MFIs have higher deposits to assets ratio than younger MFIs. This result reflects the more comprehensive regional presence of older, larger MFIs, which aligns with the capital structure theory [@barclay2005capital; @barclay2006debt] and enhanced goodwill from the public. Also, older MFIs have invested in information technology to reach people in remote locations [@di2021technology]. Again, older MFIs are likely to have attained deposit mobilisation licenses from relevant regulatory bodies like central banks. The results are in line with capital structure theory, where the size of an MFI, which is also positively related to age, has a significant relationship with leverage. For most financial intermediaries, the largest deposits are the largest source of debt financing [@gale2020bank]. 
+
+**Legal Tradition:** MFIs in countries with civil law and other legal traditions tend to have a higher deposit to assets ratio than those in common law countries, with MFIs in civil law countries having the highest proportion. It means that MFIs in common law countries finance their operations using more equity than civil law countries. These results are in line with the higher levels of capital markets development in common law countries [@la2013law; @schnyder2018twenty] that allows MFIs to quickly raise equity capital and debt capital in a form other than deposits. 
+
+**Institutional Quality (KKM):** The institutional quality or governance (KKM) has a weak negative relationship with the deposits to assets ratio, holding all other variables constant. In other words, MFIs located in countries with better governance rely less on deposits and more on alternative forms of finance, namely equity and debt, than MFIs with lower governance metrics. These results would imply that as institutional quality improves, people are less likely to maintain deposits, and instead, prefer the capital markets and other sorts of investments. The argument will hold if KKM supports the development of financial and other markets that facilitates investments with better returns than bank deposits offer [@la2013law; @schnyder2018twenty]. Indeed, although primarily insignificant, the degree of capital market development has a negative relationship with the deposits to assets ratio, which could render credence to the argument. Also, with better-developed capital markets, MFIs can access finance from other sources, lowering the relative importance of deposits. 
+
+**Asset Structure:** Asset structure or asset tangibility has a mixed relationship with deposits to assets ratio, ceteris paribus. However, capital structure theory shows that firms can use tangible assets as collateral for debt funding. Thus, firms with more tangible assets usually have more debt at a lower cost than firms with less tangible assets [@campello2011capital; @ombati2016effects]. However, the rise of information technology means that MFIs no longer have to hold high tangible (fixed) assets, especially in property, plant and equipment, to reach the unbanked population [@asadullah2021access]. Except for older firms that had already invested in many branches before information technology took root, asset structure is likely insignificant in deposits mobilisation [@di2021technology]. 
+
+**Profit Margin:** Profit margin has a positive but very weak positive relationship with deposits to assets ratio. The result could hold that profitable MFIs reach more consumers by opening more branches or investing more in information technology [@di2021technology]. Moreover, in line with the capital structure theory, Profitable firms are usually large and mature with free cash flows to support debt repayment and thus hold more debt. Firms take up debt to minimise cash that managers could misallocate. The debtholders act as delegated monitors and further monitor management [@barclay2005capital; @gwatidzo2009corporate; @ombati2016effects]. Finally, both stock market capitalisation to GDP and private credit to GDP has no significant effect on the deposits to assets ratio.  
+
   
 \blandscape
 
@@ -1311,21 +1352,6 @@ stargazer(fixed_effects_car, fixed_effects_car3,
 \elandscape
 
 
-### Drivers of Deposits to Total Assets
-
-The deposits to assets ratio have a positive relationship with MFI legal form, age, asset structure, size (logarithm of assets), and profit margin. The significant drivers of the deposits to assets ratio at the macro-level are legal tradition and institutional quality (KKM). Proxies for capital markets development, private credit to GDP and stock markets development to GDP do not significantly affect deposits to assets ratio. We discuss each of these relationships next. 
-
-**Current Legal Status:** NGO-type MFIs have lower deposits to assets ratio than commercial banks, credit unions/ cooperatives, NBFIs, and rural banks. These results arise out of the different business models. NGOs have taken root dependent on donations and subsidies with little emphasis on deposit mobilisation [@d2013unsubsidized; @d2017ngos]. For instance, Credit Unions, on the other hand, thrive on taking deposits from members who raise their capacity for deposits mobilisation compared to NGOs. For NGOs, the lower deposits to assets ratio could be due to legal restrictions on deposit mobilisation by entities not under central banks' oversight [@lauer2008transforming]. As expected, rural banks, commercial banks and cooperatives have the highest mean and median deposits to assets ratios. Commercial banks and Credit Unions thrive on taking deposits from members who raise their capacity for deposits mobilisation compared to commercial banks, reflecting their high deposits-driven leverage levels [@abbas2020commercial]. 
-
-**Age:** Older MFIs have higher deposits to assets ratio than younger MFIs. This result reflects the more comprehensive regional presence of older, larger MFIs, which aligns with the capital structure theory [@barclay2005capital; @barclay2006debt] and enhanced goodwill from the public. Also, older MFIs have invested in information technology to reach people in remote locations [@di2021technology]. Again, older MFIs are likely to have attained deposit mobilisation licenses from relevant regulatory bodies like central banks. The results are in line with capital structure theory, where the size of an MFI, which is also positively related to age, has a significant relationship with leverage. For most financial intermediaries, the largest deposits are the largest source of debt financing [@gale2020bank]. 
-
-**Legal Tradition:** MFIs in countries with civil law and other legal traditions tend to have a higher deposit to assets ratio than those in common law countries, with MFIs in civil law countries having the highest proportion. It means that MFIs in common law countries finance their operations using more equity than civil law countries. These results are in line with the higher levels of capital markets development in common law countries [@la2013law; @schnyder2018twenty] that allows MFIs to quickly raise equity capital and debt capital in a form other than deposits. 
-
-**Institutional Quality (KKM):** The institutional quality or governance (KKM) has a weak negative relationship with the deposits to assets ratio, holding all other variables constant. In other words, MFIs located in countries with better governance rely less on deposits and more on alternative forms of finance, namely equity and debt, than MFIs with lower governance metrics. These results would imply that as institutional quality improves, people are less likely to maintain deposits, and instead, prefer the capital markets and other sorts of investments. The argument will hold if KKM supports the development of financial and other markets that facilitates investments with better returns than bank deposits offer [@la2013law; @schnyder2018twenty]. Indeed, although primarily insignificant, the degree of capital market development has a negative relationship with the deposits to assets ratio, which could render credence to the argument. Also, with better-developed capital markets, MFIs can access finance from other sources, lowering the relative importance of deposits. 
-
-**Asset Structure:** Asset structure or asset tangibility has a mixed relationship with deposits to assets ratio, ceteris paribus. However, capital structure theory shows that firms can use tangible assets as collateral for debt funding. Thus, firms with more tangible assets usually have more debt at a lower cost than firms with less tangible assets [@campello2011capital; @ombati2016effects]. However, the rise of information technology means that MFIs no longer have to hold high tangible (fixed) assets, especially in property, plant and equipment, to reach the unbanked population [@asadullah2021access]. Except for older firms that had already invested in many branches before information technology took root, asset structure is likely insignificant in deposits mobilisation [@di2021technology]. 
-
-**Profit Margin:** Profit margin has a positive but very weak positive relationship with deposits to assets ratio. The result could hold that profitable MFIs reach more consumers by opening more branches or investing more in information technology [@di2021technology]. Moreover, in line with the capital structure theory, Profitable firms are usually large and mature with free cash flows to support debt repayment and thus hold more debt. Firms take up debt to minimise cash that managers could misallocate. The debtholders act as delegated monitors and further monitor management [@barclay2005capital; @gwatidzo2009corporate; @ombati2016effects]. Finally, both stock market capitalisation to GDP and private credit to GDP has no significant effect on the deposits to assets ratio.  
 
 \blandscape
 
@@ -1402,13 +1428,18 @@ my_data %>%
   
   group_by(age) %>% 
   
-  summarise(Mean_donations = mean(donations),
-            Mean_donations_Assets = mean(donations_assets_ratio), 
-            Median_donations = median(donations),
-            Median_donations_Assets = median(donations_assets_ratio)) %>% 
+  summarise(Donations = mean(donations),
+            Donations_Assets = mean(donations_assets_ratio), 
+            Donations1 = median(donations),
+            Donations_Assets1 = median(donations_assets_ratio)) %>% 
+  
   set_names(names(.) %>% str_to_sentence()) %>% 
   
-  kbl(., caption = "Mean and Median Donations and Donations to Assets Ratio", booktabs = TRUE, longtable = TRUE) %>% 
+  knitr::kable(caption = "Mean and Median Donations and Donations to Assets Ratio", 
+               
+               booktabs = TRUE) %>% 
+  
+  add_header_above(c("."=1, "Mean" = 2, "Median" = 2)) %>% 
   
   kable_paper(full_width = TRUE) %>% 
   
@@ -1418,7 +1449,9 @@ my_data %>%
     
            general = "Authors' construction from the literature",
            
-           general_title = "Source: ")
+           general_title = "Source: ") 
+  
+
   
   
 ```
