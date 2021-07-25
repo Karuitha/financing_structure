@@ -793,15 +793,15 @@ The institutional theory does have some congruence with the capital (financial) 
 
 The study adopts the fixed and random effects models depending on the outcome of the Hausman tests (see appendix 2). Following @roberts2013endogeneity. We consider the model that follows.
 
-\begin{equation}
-Y_{it} = \beta_{0} + \beta_{1}X_{it} + \mu_{it}
-\end{equation}
+
+$Y_{it} = \beta_{0} + \beta_{1}X_{it} + \mu_{it}$
+
 
 Further, assume that,
 
-\begin{equation}
-\mu_{it} = C_{i} + \epsilon_{it}
-\end{equation}
+
+$\mu_{it} = C_{i} + \epsilon_{it}$
+
 
 Where  $c_{i}$ captures the aggregate effects of the unobserved, time-invariant explanatory variables for $Y_{it}$ . Further, assume that $e_{it}$ has zero mean conditional on $X_{it}$. In the case where $C_{i}$ and $X_{it}$ are correlated, then $C_{t}$ is a fixed effect; otherwise, it is a random effect. Note that the existence of fixed effects implies the presence of endogeneity. For random effects, on the other hand, endogeneity is not a concern. However, the random-effects model affects the computation of standard errors (Roberts & Whited, 2013).
 
